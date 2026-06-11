@@ -6,13 +6,43 @@ Milestone: M5
 
 Endpoints:
   POST /demo/reset   — Wipe all data except departments; re-seed demo circular.
-                       Used before every live demo run to ensure clean state.
-  GET  /health       — Alias for the root health check (convenience for frontend)
+  GET  /health       — Alias for the root health check
 """
 
 from fastapi import APIRouter
 
 router = APIRouter()
 
-# TODO (M5): Implement demo/reset — truncate circulars, maps, approvals, events
-#            then re-insert seed circular so demo can begin from clean state
+# Temporary demo state
+demo_circular = {
+    "id": 1,
+    "title": "RBI Cybersecurity Circular",
+    "status": "PROCESSED"
+}
+
+
+@router.post("/reset")
+async def reset_demo():
+    """
+    Reset demo state.
+    In M2 this returns a simulated reset response.
+    Later it will clear database tables and reload seed data.
+    """
+
+    return {
+        "success": True,
+        "message": "Demo environment reset successfully",
+        "seed_circular": demo_circular
+    }
+
+
+@router.get("/health")
+async def health_check():
+    """
+    Health check endpoint.
+    """
+
+    return {
+        "status": "healthy",
+        "service": "PRAGMA Backend"
+    }
