@@ -1,3 +1,31 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    background-color: #F7F8FA;
+    color: #1A2433;
+  }
+}
+
+@layer utilities {
+  /* tabular figures for data — counts, timestamps, IDs line up in columns */
+  .tnum { font-variant-numeric: tabular-nums; }
+}
+
+/* Refined scrollbar — quiet, not default-chunky */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb {
+  background: #D4D9E2;
+  border-radius: 8px;
+  border: 2px solid #F7F8FA;
+}
+::-webkit-scrollbar-thumb:hover { background: #BAC2CF; }
+
+::selection { background: #142C4F; color: #fff; }

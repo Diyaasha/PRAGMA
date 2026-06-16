@@ -17,7 +17,7 @@ export default function StatusBadge({ status }) {
   const label = canonical(status)
   const cls = MAP_STATUS_COLORS[label] || 'bg-gray-100 text-gray-700 border border-gray-200'
   return (
-    <span className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${cls}`}>
+    <span className={`inline-block rounded-md px-2 py-0.5 font-mono text-[10px] font-medium uppercase tracking-wide ${cls}`}>
       {label}
     </span>
   )
