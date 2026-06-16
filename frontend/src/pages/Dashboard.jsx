@@ -51,12 +51,12 @@ export default function Dashboard() {
         </div>
       )}
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard label="Total MAPs"  value={maps.length}        tick="bg-ink" />
-        <StatCard label="Pending"     value={count('PENDING')}   tick="bg-amber-500" />
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <StatCard label="Total MAPs"  value={maps.length}          tick="bg-ink" />
+        <StatCard label="Pending"     value={count('PENDING')}     tick="bg-amber-500" />
         <StatCard label="In Progress" value={count('IN_PROGRESS')} tick="bg-violet-500" />
-        <StatCard label="Completed"   value={count('COMPLETED')} tick="bg-emerald-500" />
-      </div>
+        <StatCard label="Completed"   value={count('COMPLETED')}   tick="bg-emerald-500" />
+    </div>
 
       <div className="rounded-lg border border-gray-200 bg-white p-6">
         <h3 className="mb-5 text-[11px] font-semibold uppercase tracking-[0.1em] text-gray-500">

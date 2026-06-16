@@ -11,5 +11,8 @@ export const getMAPs = (filters = {}) =>
 export const getMAPById = (id) =>
   api.get(`/maps/${id}`).then((r) => r.data)
 
-export const updateMAPStatus = (id, status) =>
-  api.patch(`/maps/${id}/status`, { status }).then((r) => r.data)
+export const updateMAPStatus = (id, status) => {
+  // Normalise "IN_PROGRESS" -> "In Progress" to match the backend's stored form
+  const label = status.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+  return api.patch(`/maps/${id}/status`, { status: label }).then((r) => r.data)
+}
