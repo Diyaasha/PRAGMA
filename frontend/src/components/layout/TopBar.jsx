@@ -1,34 +1,39 @@
 ﻿/**
- * PRAGMA — Top Bar
- * Owner: Ashwin — M3/M4
- * Page title + backend status dot reflecting real reachability.
+ * PRAGMA — Document Header
+ * Owner: Ashwin — M4 register pass
+ * Serif page title + mono reference line, with a live backend seal.
  */
 
 import { useLocation } from 'react-router-dom'
 import { useBackendStatus } from '../../hooks/useBackendStatus'
 
-const PAGE_TITLES = {
-  '/':          'Dashboard',
-  '/maps':      'Measurable Action Points',
-  '/approvals': 'Approval Panel',
-  '/events':    'Event Log',
-  '/upload':    'Upload Circular',
+const PAGES = {
+  '/':          { title: 'Dashboard',                 ref: 'OVERVIEW' },
+  '/maps':      { title: 'Measurable Action Points',  ref: 'REGISTER' },
+  '/approvals': { title: 'Approval Panel',            ref: 'REVIEW' },
+  '/events':    { title: 'Audit Log',                 ref: 'LEDGER' },
+  '/upload':    { title: 'New Circular',              ref: 'INTAKE' },
 }
 
 export default function TopBar() {
   const { pathname } = useLocation()
-  const title = PAGE_TITLES[pathname] || 'PRAGMA'
+  const page = PAGES[pathname] || { title: 'PRAGMA', ref: '—' }
   const { online, checked } = useBackendStatus()
 
-  const dot = !checked ? 'bg-slate-300' : online ? 'bg-emerald-500' : 'bg-accent'
-  const label = !checked ? 'Checking backend' : online ? 'Backend live' : 'Sample data'
+  const dot = !checked ? 'bg-slate-300' : online ? 'bg-emerald-600' : 'bg-brass'
+  const label = !checked ? 'Connecting' : online ? 'System of record · live' : 'Sample data'
 
   return (
-    <header className="flex h-16 items-center justify-between border-b border-gray-200 bg-white px-8">
-      <h2 className="text-[15px] font-semibold tracking-tight text-ink">{title}</h2>
-      <div className="flex items-center gap-2.5 rounded-full border border-gray-200 bg-gray-50 px-3 py-1">
-        <span className={`inline-block h-1.5 w-1.5 rounded-full ${dot}`} />
-        <span className="font-mono text-xs text-gray-500">{label}</span>
+    <header className="border-b border-line bg-paper/80 px-8 py-4 backdrop-blur">
+      <div className="flex items-end justify-between">
+        <div>
+          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-brass-deep">{page.ref}</p>
+          <h2 className="mt-1 font-serif text-2xl font-semibold leading-none tracking-tight text-ink">{page.title}</h2>
+        </div>
+        <div className="flex items-center gap-2 rounded-full border border-line bg-white px-3 py-1">
+          <span className={`inline-block h-1.5 w-1.5 rounded-full ${dot}`} />
+          <span className="font-mono text-[11px] text-gray-500">{label}</span>
+        </div>
       </div>
     </header>
   )
