@@ -6,7 +6,7 @@
 
 import { useEvents } from '../hooks/useEvents'
 import { formatDateTime } from '../utils/formatters'
-
+import Spinner from '../components/shared/Spinner'
 // Dot colour per event family — keeps the timeline scannable
 const DOT = (type = '') => {
   const t = type.toUpperCase()
@@ -24,7 +24,7 @@ const label = (type = '') =>
 export default function EventLog() {
   const { events, loading, usingMock } = useEvents()
 
-  if (loading) return <div className="text-gray-400">Loading events…</div>
+  if (loading) return <Spinner label="Loading events…" />
 
   return (
     <div className="space-y-5">

@@ -12,7 +12,7 @@ import PriorityBadge from '../components/shared/PriorityBadge'
 import FilterBar from '../components/shared/FilterBar'
 import { formatDate } from '../utils/formatters'
 import { DEPARTMENTS } from '../utils/constants'
-
+import Spinner from '../components/shared/Spinner'
 const STATUS_OPTIONS = ['Pending', 'Approved', 'Rejected', 'In Progress', 'Completed']
 const PRIORITY_OPTIONS = ['Critical', 'High', 'Medium', 'Low']
 
@@ -39,7 +39,7 @@ export default function MAPsView() {
   const hasFilters = status || department || priority
   const clear = () => { setStatus(''); setDepartment(''); setPriority('') }
 
-  if (loading) return <div className="text-gray-400">Loading MAPs…</div>
+  if (loading) return <Spinner label="Loading MAPs…" />
 
   return (
     <div className="space-y-5">

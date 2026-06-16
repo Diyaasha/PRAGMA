@@ -9,7 +9,7 @@ import { useMaps } from '../hooks/useMaps'
 import StatusBadge from '../components/shared/StatusBadge'
 import PriorityBadge from '../components/shared/PriorityBadge'
 import { truncate } from '../utils/formatters'
-
+import Spinner from '../components/shared/Spinner'
 const PRIORITY_ORDER = ['Critical', 'High', 'Medium', 'Low']
 const PRIORITY_FILL = { Critical: '#dc2626', High: '#ea580c', Medium: '#ca8a04', Low: '#9ca3af' }
 
@@ -25,6 +25,7 @@ function StatCard({ label, value, accent }) {
 }
 
 export default function Dashboard() {
+  
   const { maps, loading, usingMock } = useMaps()
 
   const count = (status) => maps.filter((m) => statusKey(m.status) === status).length
@@ -36,7 +37,7 @@ export default function Dashboard() {
 
   const recent = [...maps].slice(-5).reverse()
 
-  if (loading) return <div className="text-gray-400">Loading dashboard…</div>
+  if (loading) return <Spinner label="Loading dashboard…" />
 
   return (
     <div className="space-y-6">

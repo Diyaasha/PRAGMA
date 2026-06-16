@@ -13,6 +13,7 @@ import { useMaps } from '../hooks/useMaps'
 import { createApproval } from '../api/approvals'
 import { useAppContext } from '../contexts/AppContext'
 import PriorityBadge from '../components/shared/PriorityBadge'
+import Spinner from '../components/shared/Spinner'
 
 const isPending = (m) => (m.status || '').toString().trim().toUpperCase() === 'PENDING'
 const REVIEWER = 'Compliance Officer' // demo identity; wire to auth later
@@ -91,7 +92,7 @@ export default function ApprovalPanel() {
 
   const remove = (id) => setActioned((prev) => [...prev, id])
 
-  if (loading) return <div className="text-gray-400">Loading approvals…</div>
+  if (loading) return <Spinner label="Loading approvals…" />
 
   return (
     <div className="space-y-5">
