@@ -1,0 +1,88 @@
+Reserve Bank of India
+Guidelines on Information Security, Electronic Banking, Technology Risk Management and Cyber Frauds
+RBI/2021-22/118
+CO.DPSS.POLC.No.S-479/02-27-000/2021-22
+December 02, 2021
+
+To,
+All Scheduled Commercial Banks
+All Urban Cooperative Banks
+All Payment Banks and Small Finance Banks
+All Non-Bank System Participants
+
+Madam / Dear Sir,
+
+Comprehensive Cyber Security Framework for Primary (Urban) Co-operative Banks (UCBs) — A Graded Approach and Guidelines on IT Governance for All Regulated Entities
+
+In continuation of the Reserve Bank's initiative towards strengthening the IT and cybersecurity posture of banks, the following guidelines are issued. These guidelines are based on the recommendations of the Working Group on Digital Payments Security Controls and the Expert Committee on IT/Cyber Security.
+
+PART A – IT GOVERNANCE
+
+1. IT Strategy and Board Oversight
+(a) The Board of Directors of every Regulated Entity shall formulate and approve a three-year IT Strategy aligned to the bank's business strategy. The IT Strategy shall be reviewed and updated annually.
+(b) An IT Strategy Committee at the Board level shall be constituted, comprising at least one independent director with IT/technology expertise. The Committee shall meet at least quarterly.
+(c) Regulated Entities shall appoint a Chief Information Security Officer (CISO) at the senior management level. The CISO shall report directly to the MD & CEO and shall present a quarterly cybersecurity report to the Board's IT Strategy Committee.
+
+2. IT Risk Management Framework
+(a) Regulated Entities shall implement a comprehensive IT Risk Management Framework that identifies, assesses, monitors, and mitigates IT-related risks including cybersecurity risks, third-party technology risks, and data management risks.
+(b) An IT Risk Register shall be maintained and updated at least quarterly. The IT Risk Register shall classify risks by severity and assign remediation timelines.
+(c) The Internal Audit function shall conduct an IT risk-focused audit annually. Critical findings shall be reported to the Board's Audit Committee within 30 days of the audit completion.
+
+PART B – CYBERSECURITY FRAMEWORK
+
+3. Cybersecurity Policy and Controls
+(a) Regulated Entities shall formulate and implement a Board-approved Cybersecurity Policy within 90 days of issuance of these guidelines. The policy shall be reviewed and updated annually, or immediately upon identification of significant new threats.
+(b) Regulated Entities shall implement the following baseline cybersecurity controls:
+    (i) Multi-factor authentication (MFA) for all privileged access and remote access to critical systems;
+    (ii) Network segmentation to isolate critical banking infrastructure from general-purpose networks;
+    (iii) Encryption of all customer data at rest and in transit using industry-standard algorithms;
+    (iv) Centralized log management and Security Information and Event Management (SIEM) system.
+(c) Regulated Entities shall implement a Patch Management Policy. Critical security patches shall be applied within 30 days of release by the vendor. High-severity patches shall be applied within 60 days.
+
+4. Vulnerability Assessment and Penetration Testing (VAPT)
+(a) Regulated Entities shall conduct Vulnerability Assessment and Penetration Testing (VAPT) at least twice a year — once at the beginning of the financial year and once at mid-year.
+(b) VAPT shall be conducted by a CERT-In empanelled security auditor. A fresh empanelled auditor shall be engaged at least once every 3 years to ensure independence.
+(c) The VAPT report, along with management action plan for identified vulnerabilities, shall be presented to the Board's IT Strategy Committee within 60 days of completion. Critical vulnerabilities must be remediated within 30 days of identification.
+
+5. Security Operations Centre (SOC)
+(a) Regulated Entities with total assets above Rs. 1,000 crore shall establish a 24x7 Security Operations Centre (SOC) by March 31, 2023, either in-house or through a managed security service provider.
+(b) The SOC shall monitor all critical systems in real time, detect security incidents, and initiate incident response within 30 minutes of detection.
+(c) Regulated Entities with total assets below Rs. 1,000 crore shall implement basic log monitoring and security alerting capabilities by June 30, 2023.
+
+PART C – CYBER INCIDENT RESPONSE AND REPORTING
+
+6. Incident Response Plan
+(a) Regulated Entities shall implement a Cyber Security Incident Response Plan (CSIRP) and test it through tabletop exercises at least twice a year.
+(b) The CSIRP shall define roles and responsibilities, escalation matrix, communication plan, containment procedures, recovery procedures, and post-incident review process.
+(c) Any significant cyber incident — defined as an incident causing service disruption, data breach, or financial loss — shall be reported to RBI within 6 hours of detection, using the RBI Cyber Security and IT Examination (CSITE) reporting portal.
+
+7. Data Backup and Recovery
+(a) Regulated Entities shall implement a tested Business Continuity Plan (BCP) and Disaster Recovery Plan (DRP) covering all critical IT systems. BCP/DRP shall be tested at least annually through live drills.
+(b) Full data backups shall be taken daily and stored in an off-site location or secure cloud environment. Backup restoration shall be tested quarterly.
+(c) Recovery Time Objective (RTO) for core banking systems shall not exceed 4 hours. Recovery Point Objective (RPO) shall not exceed 2 hours.
+
+PART D – THIRD-PARTY TECHNOLOGY RISK
+
+8. Technology Vendor and Cloud Service Management
+(a) Regulated Entities shall conduct a thorough due diligence — including cybersecurity assessment — before engaging any technology vendor or cloud service provider that will have access to customer data or critical banking systems.
+(b) All technology vendor contracts shall include mandatory clauses on data security, audit rights, incident notification (within 1 hour of detection), and regulatory compliance obligations.
+(c) Regulated Entities shall maintain an updated inventory of all third-party technology vendors and cloud services, including nature of data shared. This inventory shall be reviewed by the CISO quarterly.
+
+9. Internet Banking and Mobile Banking Security
+(a) Regulated Entities shall implement end-to-end encryption for all internet banking and mobile banking transactions.
+(b) All internet banking and mobile banking applications shall undergo security testing by a CERT-In empanelled auditor before major releases and at least annually.
+(c) Regulated Entities shall implement anomaly detection mechanisms to identify unusual transaction patterns and automatically block suspicious transactions pending verification.
+
+PART E – COMPLIANCE TIMELINE
+
+10. Implementation Schedule
+(a) Immediate (within 30 days): Designate CISO, implement MFA for privileged access, configure SIEM alerts.
+(b) Short-term (within 90 days): Board approval of Cybersecurity Policy, first VAPT cycle initiated, IT Risk Register established.
+(c) Medium-term (within 180 days): SOC operational (for entities with assets > Rs. 1,000 crore), BCP/DRP testing completed, all vendor contracts updated with security clauses.
+(d) Long-term (within 12 months): Full cybersecurity framework implemented, annual VAPT cycle completed, all staff trained on cybersecurity awareness.
+
+Yours faithfully,
+
+(P. Vasudevan)
+Chief General Manager
+Department of Payment and Settlement Systems

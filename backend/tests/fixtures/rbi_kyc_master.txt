@@ -1,0 +1,85 @@
+Reserve Bank of India
+Master Direction - Know Your Customer (KYC) Direction, 2016 (Updated as on February 24, 2023)
+RBI/DBR/2015-16/18
+DBR.AML.BC.No.81/14.01.001/2015-16
+February 25, 2016 (Updated February 24, 2023)
+
+To,
+All Regulated Entities
+
+Madam / Dear Sir,
+
+Master Direction – Know Your Customer (KYC) Direction, 2016
+
+CHAPTER I – PRELIMINARY
+
+1. Short Title and Commencement
+These Directions shall be called the Reserve Bank of India (Know Your Customer (KYC)) Directions, 2016 and shall come into force from the date of their issue.
+
+2. Applicability
+These Directions apply to all Regulated Entities (REs) including Scheduled Commercial Banks, Regional Rural Banks, Local Area Banks, All-India Financial Institutions, Non-Banking Financial Companies, Cooperative Banks, Payment Banks, and Small Finance Banks.
+
+CHAPTER II – CUSTOMER DUE DILIGENCE
+
+3. Customer Identification and Verification
+(a) Regulated Entities shall carry out Customer Due Diligence (CDD) measures while establishing a business relationship. CDD shall include:
+    (i) Identifying and verifying the customer using reliable, independent source documents, data, or information;
+    (ii) Identifying the beneficial owner and taking reasonable measures to verify the identity of the beneficial owner;
+    (iii) Understanding and, as appropriate, obtaining information on the purpose and intended nature of the business relationship.
+(b) All existing KYC records of customers shall be updated periodically. High-risk customers shall be subjected to enhanced due diligence and their KYC records shall be updated at least every 2 years. Medium-risk customers every 8 years, and low-risk customers every 10 years.
+(c) Customer identification documents shall be verified through Video Based Customer Identification Process (V-CIP) or through the Aadhaar OTP based e-KYC method as prescribed by UIDAI.
+
+4. Risk Categorisation of Customers
+(a) Regulated Entities shall put in place a Board-approved policy on risk categorisation of customers. The policy shall define criteria for categorisation of customers into Low, Medium, and High risk categories.
+(b) Regulated Entities shall assign risk ratings to customers at the time of onboarding and review these ratings at periodic intervals, based on transaction behaviour, geographical risk, and customer background.
+(c) Customers who are Politically Exposed Persons (PEPs), their family members, or close associates shall be mandatorily classified as High-risk customers.
+
+5. Enhanced Due Diligence (EDD)
+(a) Enhanced Due Diligence shall be applied to customers posing higher risk of money laundering or terrorist financing. EDD measures shall include:
+    (i) Obtaining additional identification documents;
+    (ii) Visiting the place of business or residence of the customer;
+    (iii) Obtaining senior management approval before establishing or continuing the business relationship.
+(b) Regulated Entities shall conduct enhanced scrutiny of all transactions involving High-risk customers and maintain transaction records with complete audit trails.
+
+CHAPTER III – ANTI-MONEY LAUNDERING (AML) AND COUNTER-FINANCING OF TERRORISM (CFT)
+
+6. Suspicious Transaction Reporting
+(a) All Regulated Entities shall file Suspicious Transaction Reports (STRs) with the Financial Intelligence Unit – India (FIU-IND) within 7 working days of forming a suspicion about a transaction.
+(b) Regulated Entities shall designate a Principal Officer responsible for STR filing. The contact details of the Principal Officer shall be reported to RBI and FIU-IND.
+(c) The Compliance Officer shall maintain a register of all STRs filed and submit a quarterly summary report to the Board's Audit Committee.
+
+7. Cash Transaction Reporting
+(a) All cash transactions of Rs. 10 lakh and above, whether a single transaction or series of connected transactions within one month, shall be reported to FIU-IND as Cash Transaction Reports (CTRs).
+(b) CTRs shall be filed by the 15th of the following month for the previous month's transactions. Failure to file within the prescribed period shall attract regulatory action.
+(c) Regulated Entities shall maintain records of all CTRs and STRs for a period of 10 years.
+
+8. AML/CFT Training
+(a) Regulated Entities shall put in place an ongoing AML/CFT employee training programme. All frontline staff involved in customer onboarding and transaction processing shall mandatorily attend AML/CFT training at least once every calendar year.
+(b) Training records shall be maintained and made available for regulatory inspection. New employees must complete AML/CFT induction training within 30 days of joining.
+(c) The Chief Compliance Officer shall certify annually to the Board that all required training has been completed.
+
+CHAPTER IV – RECORD KEEPING AND REPORTING
+
+9. Record Maintenance
+(a) Regulated Entities shall maintain all KYC records, account files, and business correspondence for a period of 10 years from the date of cessation of business relationship.
+(b) KYC records shall be maintained in a manner that enables quick retrieval for regulatory inspection. Records shall be available in digital format with search capability.
+(c) Regulated Entities shall implement a centralised KYC records management system that allows cross-branch and cross-product access to KYC data.
+
+10. Regulatory Reporting to RBI
+(a) Regulated Entities shall submit a quarterly compliance report on KYC/AML/CFT to RBI covering: number of accounts opened, risk categorisation summary, number of STRs and CTRs filed, training completion status, and KYC updation status.
+(b) The compliance report shall be submitted within 21 days of the end of each quarter. The report shall be certified by the Chief Compliance Officer.
+(c) Any material deficiency in KYC/AML/CFT compliance identified during internal audit shall be reported to RBI within 15 days of the audit report.
+
+CHAPTER V – GOVERNANCE
+
+11. Board-Level Oversight
+(a) The Board of Directors shall approve a comprehensive KYC/AML/CFT policy, which shall be reviewed at least annually and updated to incorporate regulatory changes.
+(b) The Board's Audit Committee shall receive a quarterly compliance report from the Chief Compliance Officer on KYC/AML/CFT matters.
+(c) Regulated Entities shall designate a senior management level officer as the Chief Compliance Officer with specific responsibility for KYC/AML/CFT oversight.
+
+These Directions shall be read with the Prevention of Money-Laundering Act, 2002 and the Prevention of Money-Laundering (Maintenance of Records) Rules, 2005.
+
+Yours faithfully,
+
+(A. K. Misra)
+Principal Chief General Manager

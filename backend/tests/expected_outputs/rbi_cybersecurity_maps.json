@@ -1,0 +1,73 @@
+{
+  "circular_name": "RBI Cybersecurity Framework Guidelines 2021",
+  "circular_file": "rbi_cybersecurity.txt",
+  "source": "RBI",
+  "expected_map_count_min": 5,
+  "expected_map_count_max": 8,
+  "required_departments": ["IT"],
+  "required_priorities": ["Critical", "High"],
+  "validation_rules": {
+    "all_departments_valid": ["IT", "Compliance", "Risk", "Treasury", "Legal"],
+    "all_priorities_valid": ["Critical", "High", "Medium", "Low"],
+    "min_action_length": 15,
+    "deadline_format": "YYYY-MM-DD or null"
+  },
+  "must_contain_action_keywords": [
+    "CISO",
+    "cybersecurity",
+    "VAPT",
+    "patch",
+    "SOC"
+  ],
+  "sample_valid_maps": [
+    {
+      "action": "Appoint a Chief Information Security Officer (CISO) at senior management level reporting directly to MD & CEO within 30 days",
+      "department": "IT",
+      "priority": "Critical",
+      "deadline": null,
+      "validation_notes": "Section 1(c) mandates CISO appointment — IT owns security leadership, Critical due to immediate 30-day implementation requirement"
+    },
+    {
+      "action": "Implement Board-approved Cybersecurity Policy within 90 days, covering all digital systems, to be reviewed annually",
+      "department": "IT",
+      "priority": "Critical",
+      "deadline": null,
+      "validation_notes": "Section 3(a) mandates Board-approved Cybersecurity Policy within 90 days — IT drafts the policy, Critical due to mandatory 90-day deadline"
+    },
+    {
+      "action": "Implement critical security patch management: apply critical patches within 30 days and high-severity patches within 60 days of vendor release",
+      "department": "IT",
+      "priority": "Critical",
+      "deadline": null,
+      "validation_notes": "Section 3(c) mandates patch management timelines — IT owns patching operations, Critical due to security risk from unpatched systems"
+    },
+    {
+      "action": "Conduct Vulnerability Assessment and Penetration Testing (VAPT) twice annually using CERT-In empanelled auditor; present report to Board IT Strategy Committee within 60 days",
+      "department": "IT",
+      "priority": "High",
+      "deadline": null,
+      "validation_notes": "Section 4(a-c) mandates bi-annual VAPT — IT owns security testing, High priority due to recurring governance obligation"
+    },
+    {
+      "action": "Establish 24x7 Security Operations Centre (SOC) by March 31, 2023 for entities with total assets above Rs. 1,000 crore",
+      "department": "IT",
+      "priority": "High",
+      "deadline": "2023-03-31",
+      "validation_notes": "Section 5(a) mandates SOC by March 2023 — IT owns SOC implementation, High priority due to explicit deadline with asset-size threshold"
+    },
+    {
+      "action": "Report all significant cyber incidents to RBI within 6 hours of detection using the CSITE reporting portal",
+      "department": "Compliance",
+      "priority": "Critical",
+      "deadline": null,
+      "validation_notes": "Section 6(c) mandates 6-hour incident reporting — Compliance owns regulatory reporting, Critical due to short reporting window and regulatory obligation"
+    },
+    {
+      "action": "Test Business Continuity Plan and Disaster Recovery Plan at least annually through live drills; ensure RTO of 4 hours and RPO of 2 hours for core banking systems",
+      "department": "IT",
+      "priority": "High",
+      "deadline": null,
+      "validation_notes": "Section 7(a-c) mandates BCP/DRP testing — IT owns infrastructure resilience, High priority due to ongoing operational risk management obligation"
+    }
+  ]
+}
