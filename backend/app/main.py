@@ -5,15 +5,26 @@ Owner: Diyasha (Backend APIs)
 Registers CORS middleware, mounts all API routers, exposes health check.
 """
 
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
 from app.api.v1.router import api_router
+from app.database import SessionLocal
+from app.services.department_service import seed_departments
 
-# ---------------------------------------------------------------------------
-# App instance
-# ---------------------------------------------------------------------------
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Seed departments on startup
+    db = SessionLocal()
+    try:
+        seed_departments(db)
+    finally:
+        db.close()
+    yield
+
 
 app = FastAPI(
     title="PRAGMA API",
@@ -24,6 +35,7 @@ app = FastAPI(
     version="0.1.0",
     docs_url="/docs",
     redoc_url="/redoc",
+    lifespan=lifespan,
 )
 
 # ---------------------------------------------------------------------------

@@ -8,41 +8,31 @@ Endpoints:
   GET /events   — Full lifecycle event log, newest first
 """
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
+from typing import List
+
+from app.database import get_db
+from app.models.event import Event
+from app.schemas.event import EventOut
 
 router = APIRouter()
 
-# Temporary event log storage for M2
-events_db = [
-    {
-        "id": 1,
-        "event_type": "CIRCULAR_UPLOADED",
-        "description": "RBI circular uploaded",
-        "timestamp": "2026-06-11T10:00:00"
-    },
-    {
-        "id": 2,
-        "event_type": "MAP_EXTRACTED",
-        "description": "Claude extracted MAPs",
-        "timestamp": "2026-06-11T10:01:00"
-    },
-    {
-        "id": 3,
-        "event_type": "MAP_APPROVED",
-        "description": "Compliance approved MAP",
-        "timestamp": "2026-06-11T10:05:00"
-    }
-]
 
-
-@router.get("")
+@router.get("", response_model=List[EventOut])
 async def list_events(
     limit: int = 50,
-    offset: int = 0
+    offset: int = 0,
+    db: Session = Depends(get_db)
 ):
     """
     Return event log entries.
     Supports pagination using limit and offset.
     """
-
-    return events_db[offset: offset + limit]
+    return (
+        db.query(Event)
+        .order_by(Event.created_at.desc())
+        .offset(offset)
+        .limit(limit)
+        .all()
+    )

@@ -15,9 +15,28 @@ Callers:
 """
 
 from sqlalchemy.orm import Session
+from app.models.event import Event
 
-# TODO (M2): Implement service functions
-#
-# Functions to implement:
-#   log_event(db, event_type: str, description: str, actor: str = "System",
-#             circular_id=None, map_id=None) -> Event
+
+def log_event(
+    db: Session,
+    event_type: str,
+    description: str,
+    actor: str = "System",
+    circular_id=None,
+    map_id=None
+) -> Event:
+    """
+    Creates and persists a new lifecycle event.
+    """
+    event = Event(
+        event_type=event_type,
+        description=description,
+        actor=actor,
+        circular_id=circular_id,
+        map_id=map_id
+    )
+    db.add(event)
+    db.commit()
+    db.refresh(event)
+    return event

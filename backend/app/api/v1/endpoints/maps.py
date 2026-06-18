@@ -5,136 +5,68 @@ Owner: Diyasha (Backend APIs)
 Milestone: M2
 
 Endpoints:
-  GET   /maps                   — List all MAPs (filter: status, department, priority)
+  GET   /maps                   — List all MAPs (filter: status, department, priority, circular_id)
   GET   /maps/{id}              — Get single MAP with approval history
   PATCH /maps/{id}/status       — Department marks MAP as In Progress / Completed
 """
 
-from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel
-from typing import Optional
+from fastapi import APIRouter, HTTPException, Depends
+from sqlalchemy.orm import Session
+from typing import List, Optional
+import uuid
+
+from app.database import get_db
+from app.schemas.map import MAPOut, MAPDetailOut, MAPStatusUpdate
+from app.services.map_service import get_maps, get_map_by_id, update_map_status
 
 router = APIRouter()
 
-# Temporary demo storage for M2
-maps_db = [
-    {
-        "id": 1,
-        "action": "Update KYC verification process",
-        "department": "Compliance",
-        "priority": "Critical",
-        "status": "PENDING"
-    },
-    {
-        "id": 2,
-        "action": "Implement cybersecurity controls",
-        "department": "IT",
-        "priority": "High",
-        "status": "IN_PROGRESS"
-    },
-    {
-        "id": 3,
-        "action": "Perform quarterly risk assessment",
-        "department": "Risk",
-        "priority": "Medium",
-        "status": "COMPLETED"
-    }
-]
 
-
-class StatusUpdateRequest(BaseModel):
-    status: str
-
-
-@router.get("")
+@router.get("", response_model=List[MAPOut])
 async def list_maps(
     status: Optional[str] = None,
     department: Optional[str] = None,
     priority: Optional[str] = None,
+    circular_id: Optional[uuid.UUID] = None,
+    db: Session = Depends(get_db)
 ):
     """
     List all MAPs with optional filtering.
     """
-
-    results = maps_db
-
-    if status:
-        results = [
-            m for m in results
-            if m["status"].lower() == status.lower()
-        ]
-
-    if department:
-        results = [
-            m for m in results
-            if m["department"].lower() == department.lower()
-        ]
-
-    if priority:
-        results = [
-            m for m in results
-            if m["priority"].lower() == priority.lower()
-        ]
-
-    return results
+    return get_maps(db, status=status, department=department, priority=priority, circular_id=circular_id)
 
 
-@router.get("/{map_id}")
-async def get_map(map_id: int):
+@router.get("/{map_id}", response_model=MAPDetailOut)
+async def get_map(map_id: uuid.UUID, db: Session = Depends(get_db)):
     """
     Get a single MAP with approval history.
     """
-
-    for m in maps_db:
-        if m["id"] == map_id:
-            return {
-                **m,
-                "approval_history": [
-                    {
-                        "status": m["status"],
-                        "timestamp": "2026-06-11T15:00:00"
-                    }
-                ]
-            }
-
-    raise HTTPException(
-        status_code=404,
-        detail="MAP not found"
-    )
+    map_obj = get_map_by_id(db, map_id)
+    if not map_obj:
+        raise HTTPException(
+            status_code=404,
+            detail="MAP not found"
+        )
+    return map_obj
 
 
 @router.patch("/{map_id}/status")
-async def update_map_status(
-    map_id: int,
-    payload: StatusUpdateRequest
+async def update_status(
+    map_id: uuid.UUID,
+    payload: MAPStatusUpdate,
+    db: Session = Depends(get_db)
 ):
     """
     Update MAP status.
     """
-
-    valid_statuses = [
-        "PENDING",
-        "IN_PROGRESS",
-        "APPROVED",
-        "COMPLETED"
-    ]
-
-    if payload.status.upper() not in valid_statuses:
+    try:
+        updated_map = update_map_status(db, map_id, payload.status)
+        return {
+            "message": "MAP status updated successfully",
+            "map": MAPOut.model_validate(updated_map)
+        }
+    except ValueError as e:
         raise HTTPException(
             status_code=400,
-            detail=f"Status must be one of {valid_statuses}"
+            detail=str(e)
         )
-
-    for m in maps_db:
-        if m["id"] == map_id:
-            m["status"] = payload.status.upper()
-
-            return {
-                "message": "MAP status updated successfully",
-                "map": m
-            }
-
-    raise HTTPException(
-        status_code=404,
-        detail="MAP not found"
-    )

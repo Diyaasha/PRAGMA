@@ -9,7 +9,7 @@ Milestone: M1
 """
 
 import uuid
-from sqlalchemy import Column, String, Text, Date, DateTime, ForeignKey
+from sqlalchemy import Column, String, Text, Date, DateTime, ForeignKey, Float
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
@@ -35,6 +35,10 @@ class MAP(Base):
     deadline = Column(Date, nullable=True)
     status = Column(String, default="Pending")       # See MAP_STATUSES above
     validation_notes = Column(Text, nullable=True)   # Claude's reasoning / Anuja's notes
+
+    # Optional enhancements (Task 11)
+    confidence_score = Column(Float, nullable=True)
+    source_clause = Column(Text, nullable=True)
 
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
