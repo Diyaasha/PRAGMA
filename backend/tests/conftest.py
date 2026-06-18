@@ -250,6 +250,7 @@ def upload_digital_lending(fresh_client, mock_claude_extract, digital_lending_te
         "/api/v1/circulars/upload",
         json={
             "title": "RBI Digital Lending Guidelines 2022",
+            "source": "RBI",
             "content": digital_lending_text,
         },
     )

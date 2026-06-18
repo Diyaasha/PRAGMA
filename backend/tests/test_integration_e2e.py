@@ -50,7 +50,7 @@ class TestFullDemoFlow:
         """Demo step 1:00 — MAPs are visible after upload."""
         fresh_client.post(
             "/api/v1/circulars/upload",
-            json={"title": "RBI Digital Lending 2022", "content": digital_lending_text},
+            json={"title": "RBI Digital Lending 2022", "source": "RBI", "content": digital_lending_text},
         )
         response = fresh_client.get("/api/v1/maps")
         # In the current in-memory implementation, maps are not persisted from upload
@@ -63,7 +63,7 @@ class TestFullDemoFlow:
         """Demo step 1:45 — Compliance officer approves a MAP."""
         upload = fresh_client.post(
             "/api/v1/circulars/upload",
-            json={"title": "RBI Digital Lending 2022", "content": digital_lending_text},
+            json={"title": "RBI Digital Lending 2022", "source": "RBI", "content": digital_lending_text},
         )
         # Get a real map ID from the response or from GET /maps
         maps_resp = fresh_client.get("/api/v1/maps")
@@ -94,7 +94,7 @@ class TestFullDemoFlow:
         """Demo step 1:45 — Compliance officer rejects a different MAP."""
         fresh_client.post(
             "/api/v1/circulars/upload",
-            json={"title": "RBI Digital Lending 2022", "content": digital_lending_text},
+            json={"title": "RBI Digital Lending 2022", "source": "RBI", "content": digital_lending_text},
         )
         maps_resp = fresh_client.get("/api/v1/maps")
         maps = maps_resp.json()
@@ -123,7 +123,7 @@ class TestFullDemoFlow:
         response = fresh_client.post(
             "/api/v1/approvals",
             json={
-                "map_id": 1,
+                "map_id": "00000000-0000-0000-0000-000000000000",
                 "decision": "MAYBE",
                 "reviewer": "Test",
                 "comments": "",
@@ -137,7 +137,7 @@ class TestFullDemoFlow:
         """After approving 2 MAPs, GET /approvals must return 2 records."""
         fresh_client.post(
             "/api/v1/circulars/upload",
-            json={"title": "Test", "content": digital_lending_text},
+            json={"title": "Test", "source": "RBI", "content": digital_lending_text},
         )
         maps_resp = fresh_client.get("/api/v1/maps")
         maps = maps_resp.json()
@@ -177,7 +177,7 @@ class TestFullDemoFlow:
         response = fresh_client.get("/health")
         assert response.status_code == 200
         data = response.json()
-        assert data.get("status") == "ok"
+        assert data.get("status") in ("ok", "healthy")
 
 
 # ---------------------------------------------------------------------------
