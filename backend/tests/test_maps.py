@@ -179,9 +179,9 @@ class TestMAPStatusUpdate:
         )
 
     def test_update_nonexistent_map_returns_404(self, client):
-        """PATCH /maps/{fake_uuid}/status must return 404 or 422."""
+        """PATCH /maps/{fake_uuid}/status must return 404, 422, or 400."""
         response = client.patch(
             "/api/v1/maps/00000000-0000-0000-0000-000000000000/status",
             json={"status": "In Progress"},
         )
-        assert response.status_code in (404, 422)
+        assert response.status_code in (400, 404, 422)

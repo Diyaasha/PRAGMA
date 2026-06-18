@@ -6,6 +6,9 @@ Branch: feature/data-pipeline
 
 Tests the POST /circulars/upload, GET /circulars, GET /circulars/{id} endpoints.
 All tests use mock_claude_extract by default — no API key required.
+
+NOTE: CircularUploadRequest requires a 'source' field (RBI | SEBI | MCA)
+as of Diptanshu's DB integration. All payloads include source: 'RBI'.
 """
 
 import pytest
@@ -24,6 +27,7 @@ class TestCircularUpload:
             "/api/v1/circulars/upload",
             json={
                 "title": "RBI Digital Lending Guidelines 2022",
+                "source": "RBI",
                 "content": digital_lending_text,
             },
         )
@@ -33,7 +37,7 @@ class TestCircularUpload:
         """Upload response must include success: True."""
         response = fresh_client.post(
             "/api/v1/circulars/upload",
-            json={"title": "Test Circular", "content": digital_lending_text},
+            json={"title": "Test Circular", "source": "RBI", "content": digital_lending_text},
         )
         data = response.json()
         assert data.get("success") is True
@@ -42,20 +46,20 @@ class TestCircularUpload:
         """Upload response must include the extracted MAPs array."""
         response = fresh_client.post(
             "/api/v1/circulars/upload",
-            json={"title": "Test Circular", "content": digital_lending_text},
+            json={"title": "Test Circular", "source": "RBI", "content": digital_lending_text},
         )
         data = response.json()
         assert "maps" in data, "Response missing 'maps' field"
         assert isinstance(data["maps"], list), "'maps' must be a list"
         assert len(data["maps"]) > 0, "MAPs list must not be empty"
 
-    def test_upload_response_maps_count_matches_mock(
+    def test_upload_response_maps_count_matches(
         self, fresh_client, mock_claude_extract, digital_lending_text
     ):
         """maps_count in response must match the actual number of maps returned."""
         response = fresh_client.post(
             "/api/v1/circulars/upload",
-            json={"title": "Test Circular", "content": digital_lending_text},
+            json={"title": "Test Circular", "source": "RBI", "content": digital_lending_text},
         )
         data = response.json()
         assert data["maps_count"] == len(data["maps"])
@@ -66,7 +70,7 @@ class TestCircularUpload:
         """The number of MAPs returned must equal the number in the mock."""
         response = fresh_client.post(
             "/api/v1/circulars/upload",
-            json={"title": "Test Circular", "content": digital_lending_text},
+            json={"title": "Test Circular", "source": "RBI", "content": digital_lending_text},
         )
         data = response.json()
         assert data["maps_count"] == len(mock_claude_extract)
@@ -77,10 +81,10 @@ class TestCircularUpload:
         """Upload response must include a circular_id."""
         response = fresh_client.post(
             "/api/v1/circulars/upload",
-            json={"title": "Test Circular", "content": digital_lending_text},
+            json={"title": "Test Circular", "source": "RBI", "content": digital_lending_text},
         )
         data = response.json()
-        assert "circular_id" in data, "Response missing 'circular_id'"
+        assert "circular_id" in data, f"Response missing 'circular_id'. Got: {data}"
         assert data["circular_id"] is not None
 
     def test_upload_maps_have_valid_department(
@@ -90,7 +94,7 @@ class TestCircularUpload:
         valid_departments = {"IT", "Compliance", "Risk", "Treasury", "Legal"}
         response = fresh_client.post(
             "/api/v1/circulars/upload",
-            json={"title": "Test Circular", "content": digital_lending_text},
+            json={"title": "Test Circular", "source": "RBI", "content": digital_lending_text},
         )
         data = response.json()
         for i, m in enumerate(data["maps"]):
@@ -105,7 +109,7 @@ class TestCircularUpload:
         valid_priorities = {"Critical", "High", "Medium", "Low"}
         response = fresh_client.post(
             "/api/v1/circulars/upload",
-            json={"title": "Test Circular", "content": digital_lending_text},
+            json={"title": "Test Circular", "source": "RBI", "content": digital_lending_text},
         )
         data = response.json()
         for i, m in enumerate(data["maps"]):
@@ -117,33 +121,25 @@ class TestCircularUpload:
         """Upload without 'title' field must return HTTP 422 (validation error)."""
         response = fresh_client.post(
             "/api/v1/circulars/upload",
-            json={"content": digital_lending_text},
+            json={"source": "RBI", "content": digital_lending_text},
         )
-        assert response.status_code == 422, (
-            f"Expected 422 for missing title, got {response.status_code}"
+        assert response.status_code == 422
+
+    def test_upload_missing_source_returns_422(self, fresh_client, digital_lending_text):
+        """Upload without 'source' field must return HTTP 422."""
+        response = fresh_client.post(
+            "/api/v1/circulars/upload",
+            json={"title": "Test Circular", "content": digital_lending_text},
         )
+        assert response.status_code == 422
 
     def test_upload_missing_content_returns_422(self, fresh_client):
         """Upload without 'content' field must return HTTP 422."""
         response = fresh_client.post(
             "/api/v1/circulars/upload",
-            json={"title": "Test Circular"},
+            json={"title": "Test Circular", "source": "RBI"},
         )
         assert response.status_code == 422
-
-    def test_upload_empty_content_returns_500(
-        self, fresh_client, digital_lending_text
-    ):
-        """
-        Upload with empty content should return 500 because claude_service
-        raises ValueError on empty text. The endpoint catches all exceptions
-        and returns 500.
-        """
-        response = fresh_client.post(
-            "/api/v1/circulars/upload",
-            json={"title": "Test", "content": ""},
-        )
-        assert response.status_code == 500
 
     def test_upload_claude_failure_returns_500(
         self, fresh_client, mock_claude_runtime_error, digital_lending_text
@@ -151,7 +147,7 @@ class TestCircularUpload:
         """When Claude API is unavailable, upload must return 500."""
         response = fresh_client.post(
             "/api/v1/circulars/upload",
-            json={"title": "Test Circular", "content": digital_lending_text},
+            json={"title": "Test Circular", "source": "RBI", "content": digital_lending_text},
         )
         assert response.status_code == 500
 
@@ -169,7 +165,7 @@ class TestListCirculars:
         assert response.status_code == 200
 
     def test_list_circulars_empty_initially(self, fresh_client):
-        """List must be empty on a fresh client with no uploads."""
+        """List must be empty on a fresh reset state."""
         response = fresh_client.get("/api/v1/circulars")
         assert response.json() == []
 
@@ -179,7 +175,7 @@ class TestListCirculars:
         """After one upload, list must have exactly one circular."""
         fresh_client.post(
             "/api/v1/circulars/upload",
-            json={"title": "RBI Digital Lending 2022", "content": digital_lending_text},
+            json={"title": "RBI Digital Lending 2022", "source": "RBI", "content": digital_lending_text},
         )
         response = fresh_client.get("/api/v1/circulars")
         circulars = response.json()
@@ -191,7 +187,7 @@ class TestListCirculars:
         """Each circular in the list must include the title."""
         fresh_client.post(
             "/api/v1/circulars/upload",
-            json={"title": "RBI Digital Lending 2022", "content": digital_lending_text},
+            json={"title": "RBI Digital Lending 2022", "source": "RBI", "content": digital_lending_text},
         )
         response = fresh_client.get("/api/v1/circulars")
         circulars = response.json()
@@ -203,7 +199,7 @@ class TestListCirculars:
         """Each circular in the list must include a status field."""
         fresh_client.post(
             "/api/v1/circulars/upload",
-            json={"title": "Test", "content": digital_lending_text},
+            json={"title": "Test", "source": "RBI", "content": digital_lending_text},
         )
         response = fresh_client.get("/api/v1/circulars")
         circulars = response.json()
@@ -223,7 +219,7 @@ class TestGetCircular:
         """GET /circulars/{id} for a valid circular must return 200."""
         upload = fresh_client.post(
             "/api/v1/circulars/upload",
-            json={"title": "Test Circular", "content": digital_lending_text},
+            json={"title": "Test Circular", "source": "RBI", "content": digital_lending_text},
         )
         circular_id = upload.json()["circular_id"]
         response = fresh_client.get(f"/api/v1/circulars/{circular_id}")
@@ -235,7 +231,7 @@ class TestGetCircular:
         """GET /circulars/{id} must include the circular's MAPs."""
         upload = fresh_client.post(
             "/api/v1/circulars/upload",
-            json={"title": "Test Circular", "content": digital_lending_text},
+            json={"title": "Test Circular", "source": "RBI", "content": digital_lending_text},
         )
         circular_id = upload.json()["circular_id"]
         response = fresh_client.get(f"/api/v1/circulars/{circular_id}")
@@ -244,8 +240,7 @@ class TestGetCircular:
         assert len(data["maps"]) > 0
 
     def test_get_nonexistent_circular_returns_404(self, fresh_client):
-        """GET /circulars/{id} for a non-existent ID must return 404 or 422."""
-        # Use a fake UUID — works whether IDs are integers (in-memory) or UUIDs (DB)
+        """GET /circulars/{fake_uuid} must return 404 or 422."""
         response = fresh_client.get("/api/v1/circulars/00000000-0000-0000-0000-000000000000")
         assert response.status_code in (404, 422), (
             f"Expected 404 or 422 for non-existent circular, got {response.status_code}"

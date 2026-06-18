@@ -215,8 +215,8 @@ def fetch_all_feeds() -> list[CircularPreview]:
         try:
             previews = fetch_feed(source)
             all_previews.extend(previews)
-        except ValueError as e:
-            logger.error("Config error for source %s: %s", source, e)
+        except Exception as e:
+            logger.error("Failed to fetch feed for source %s: %s", source, e)
 
     # Sort by published date descending (None dates go to end)
     all_previews.sort(

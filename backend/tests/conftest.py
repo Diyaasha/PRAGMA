@@ -212,7 +212,7 @@ def mock_claude_extract(monkeypatch):
     Returns the mock maps list so tests can assert against it.
     """
     monkeypatch.setattr(
-        "app.services.claude_service.extract_maps",
+        "app.api.v1.endpoints.circulars.extract_maps",
         lambda circular_text: MOCK_MAPS,
     )
     return MOCK_MAPS
@@ -223,7 +223,7 @@ def mock_claude_empty(monkeypatch):
     """Mock that simulates Claude returning an empty list (error condition)."""
     def _raise(circular_text):
         raise ValueError("Claude returned an empty MAP list — circular may be too short or ambiguous")
-    monkeypatch.setattr("app.services.claude_service.extract_maps", _raise)
+    monkeypatch.setattr("app.api.v1.endpoints.circulars.extract_maps", _raise)
 
 
 @pytest.fixture
@@ -231,7 +231,7 @@ def mock_claude_runtime_error(monkeypatch):
     """Mock that simulates Claude API being unavailable."""
     def _raise(circular_text):
         raise RuntimeError("Claude API error on first call: connection timeout")
-    monkeypatch.setattr("app.services.claude_service.extract_maps", _raise)
+    monkeypatch.setattr("app.api.v1.endpoints.circulars.extract_maps", _raise)
 
 
 # ---------------------------------------------------------------------------
