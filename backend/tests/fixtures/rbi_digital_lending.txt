@@ -1,0 +1,99 @@
+Reserve Bank of India
+Master Direction – Reserve Bank of India (Regulatory Framework for Digital Lending) Directions, 2022
+RBI/2022-23/111
+DOR.CRE.REC.66/21.07.001/2022-23
+September 2, 2022
+
+To,
+All Commercial Banks (including Small Finance Banks, Local Area Banks and Regional Rural Banks)
+All Primary (Urban) Co-operative Banks
+All Non-Banking Financial Companies (including Housing Finance Companies)
+
+Madam / Dear Sir,
+
+Master Direction – Reserve Bank of India (Regulatory Framework for Digital Lending) Directions, 2022
+
+In exercise of the powers conferred under Sections 21, 35A, 56 of the Banking Regulation Act, 1949, Sections 45JA, 45L, 45M and 45MA of the Reserve Bank of India Act, 1934, and Sections 30A and 32 of the National Housing Bank Act, 1987, the Reserve Bank of India (RBI) hereby issues the following Directions.
+
+CHAPTER I – PRELIMINARY
+
+1. Short Title and Commencement
+These Directions shall be called the Reserve Bank of India (Regulatory Framework for Digital Lending) Directions, 2022 and shall come into force with immediate effect.
+
+2. Applicability
+These Directions shall apply to:
+(a) All Commercial Banks, Primary (Urban) Co-operative Banks, State Co-operative Banks, District Central Co-operative Banks;
+(b) Non-Banking Financial Companies including Housing Finance Companies.
+
+3. Definitions
+For the purpose of these Directions:
+(a) "Digital Lending" means a remote and automated lending process, largely by use of seamless digital technologies for customer acquisition, credit assessment, loan approval, disbursement, recovery, and associated customer service.
+(b) "Lending Service Provider (LSP)" means an agent of a Regulated Entity (RE) who carries out one or more of lender's functions or part thereof in customer acquisition, underwriting support, pricing support, disbursement, servicing, monitoring, collection, liquidation of specific loan or loan portfolio on behalf of REs in conformity with applicable laws and regulations.
+(c) "Digital Lending App (DLA)" means a mobile and web-based application with user interface that facilitates digital lending services.
+
+CHAPTER II – CONDUCT RELATED REQUIREMENTS
+
+4. Loan Disbursement and Repayment
+(a) Loan disbursement shall always be made into the bank account of the borrower, except in cases of disbursements specifically permissible under any other statutory or regulatory framework.
+(b) Any repayment of loan shall be executed only from the bank account of the borrower to the bank account of the Regulated Entity, and no pass-through or pool accounts of the LSP or any third party shall be used for this purpose.
+(c) Regulated Entities shall ensure that any fees, charges, etc. payable to LSPs are paid directly by the RE and are not charged by the LSP to the borrower directly.
+
+5. Key Fact Statement (KFS)
+(a) A Key Fact Statement (KFS) must be provided to the borrower before the execution of the contract, in a standardised format prescribed by the RBI. The KFS shall include:
+    (i) Annual Percentage Rate (APR) computed on a net disbursed amount;
+    (ii) Recovery mechanism;
+    (iii) Details of LSP, if any;
+    (iv) Cooling-off/look-up period during which borrower can exit the digital loan without any penalty.
+(b) Regulated Entities shall ensure that the Annual Percentage Rate (APR) applicable to the borrower is disclosed upfront in the KFS. APR shall be based on the all-inclusive cost of the loan, including processing fee, insurance premium, and any other charges.
+(c) The look-up period shall be a minimum of 3 days for loans with tenor above 7 days and one day for loans with tenor up to 7 days. During this period, the borrower shall be allowed to exit the digital loan by repaying the principal amount along with the proportionate APR, without any penalty.
+
+6. Grievance Redressal
+(a) A Nodal Grievance Redressal Officer shall be designated by the Regulated Entity to deal with FinTech/digital lending related complaints. Contact details of the Grievance Officer shall be prominently displayed on the website of the RE and the DLA.
+(b) If the complaint is not redressed within 30 days, the borrower shall have the right to escalate to the Reserve Bank – Integrated Ombudsman Scheme (RB-IOS).
+(c) The REs shall also ensure that a link to the RB-IOS portal is available on the DLA and the website of the RE.
+
+7. Cooling-off Period
+(a) Regulated Entities shall offer a cooling-off period to all digital lending borrowers. During this period, the borrower can exit the digital loan by repaying the principal loan amount along with the proportionate APR without any penalty.
+(b) The cooling-off period shall be clearly mentioned in the KFS and the loan agreement.
+
+CHAPTER III – TECHNOLOGY AND DATA REQUIREMENTS
+
+8. Data Collection and Storage
+(a) Regulated Entities shall ensure that the data collected by DLAs is need-based, with prior and explicit consent of the borrower. The data must have clear audit trails.
+(b) All data collected by DLAs shall be stored only on servers located within India. In case the DLA is a third-party platform, the RE shall verify that the data is stored in India.
+(c) Regulated Entities must maintain a register of all data shared with LSPs, which shall be available for regulatory inspection at any time.
+
+9. Lending Service Provider (LSP) Audit and Oversight
+(a) Regulated Entities shall conduct enhanced due diligence before onboarding any LSP, including a technical audit of the LSP's systems and processes.
+(b) An annual audit of all LSP integrations must be conducted by an independent audit firm to verify data security, customer data privacy, and compliance with these Directions. The audit report shall be submitted to the Board's Risk Management Committee within 90 days of the financial year-end.
+(c) Regulated Entities must ensure that LSPs do not store any customer data after the completion of the transaction for which the data was collected.
+
+10. Cybersecurity and Technology Governance
+(a) Regulated Entities shall implement a comprehensive cybersecurity framework covering all digital lending applications. This framework shall include penetration testing, vulnerability assessments, and security patch management for all DLAs.
+(b) All digital lending applications shall undergo a security audit by a CERT-In empanelled auditor at least once annually. Any critical vulnerabilities identified must be remediated within 30 days of identification.
+(c) Regulated Entities shall implement multi-factor authentication for all user access to DLAs processing loan applications above Rs. 1 lakh.
+
+CHAPTER IV – COMPLIANCE AND REPORTING
+
+11. Regulatory Reporting
+(a) Regulated Entities shall submit a quarterly report to the RBI on the volume of digital loans disbursed, outstanding digital loan portfolio, number of LSPs engaged, and customer grievances received and resolved.
+(b) The first quarterly report shall be submitted by December 31, 2022, covering transactions from October 1, 2022 to December 31, 2022.
+(c) Regulated Entities shall also report any material cyber incident impacting digital lending operations to RBI within 6 hours of detection.
+
+12. Board Oversight
+(a) The Board of Directors of each Regulated Entity shall approve a Digital Lending Policy within 90 days of the issuance of these Directions.
+(b) The Digital Lending Policy shall include risk management framework, customer protection measures, technology governance, LSP oversight mechanism, and grievance redressal framework.
+(c) The Board's Risk Management Committee shall review the Digital Lending Policy and LSP audit reports at least once every six months.
+
+CHAPTER V – MISCELLANEOUS
+
+13. Effective Date
+(a) The provisions related to existing digital loans shall be complied with by November 30, 2022.
+(b) For new digital loans sanctioned on or after the date of this circular, all provisions shall be applicable immediately.
+
+These Directions supersede all earlier circulars and guidelines issued by the RBI on the subject of digital lending.
+
+Yours faithfully,
+
+(Manoranjan Mishra)
+Chief General Manager

@@ -4,13 +4,13 @@ uvicorn[standard]==0.30.1
 python-multipart==0.0.9         # Required for form/file uploads
 
 # ─── Database ─────────────────────────────────────────────────────────────────
-sqlalchemy==2.0.30
+sqlalchemy==2.0.36              # 2.0.36+ required for Python 3.13 compatibility
 alembic==1.13.1
-psycopg2-binary==2.9.9          # PostgreSQL driver (binary = no build deps)
+psycopg2-binary==2.9.12         # PostgreSQL driver (binary = no build deps) — 2.9.12 has Python 3.13 wheels
 
 # ─── Validation & Settings ────────────────────────────────────────────────────
-pydantic==2.7.1
-pydantic-settings==2.3.1        # .env loading via BaseSettings
+pydantic==2.10.6
+pydantic-settings==2.7.1        # .env loading via BaseSettings
 
 # ─── AI ───────────────────────────────────────────────────────────────────────
 anthropic==0.28.0               # Claude API SDK
@@ -20,8 +20,11 @@ httpx==0.27.0                   # Used internally by anthropic SDK
 
 # ─── Utilities ────────────────────────────────────────────────────────────────
 python-dotenv==1.0.1
+requests==2.32.3                 # HTTP client for feed ingestion and circular fetching
+feedparser==6.0.11               # RSS/Atom feed parsing for RBI, SEBI, MCA feeds
 
 # ─── Testing ──────────────────────────────────────────────────────────────────
 pytest==8.2.2
 pytest-asyncio==0.23.7
 httpx==0.27.0                   # TestClient for FastAPI
+pytest-cov==5.0.0               # Test coverage reports

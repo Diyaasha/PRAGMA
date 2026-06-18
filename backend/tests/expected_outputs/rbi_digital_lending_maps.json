@@ -1,0 +1,80 @@
+{
+  "circular_name": "RBI Digital Lending Guidelines 2022",
+  "circular_file": "rbi_digital_lending.txt",
+  "source": "RBI",
+  "expected_map_count_min": 4,
+  "expected_map_count_max": 8,
+  "required_departments": ["IT", "Compliance", "Legal"],
+  "required_priorities": ["Critical", "High"],
+  "validation_rules": {
+    "all_departments_valid": ["IT", "Compliance", "Risk", "Treasury", "Legal"],
+    "all_priorities_valid": ["Critical", "High", "Medium", "Low"],
+    "min_action_length": 15,
+    "deadline_format": "YYYY-MM-DD or null"
+  },
+  "must_contain_action_keywords": [
+    "Key Fact Statement",
+    "Annual Percentage Rate",
+    "Grievance",
+    "data",
+    "LSP"
+  ],
+  "sample_valid_maps": [
+    {
+      "action": "Provide Key Fact Statement (KFS) to borrowers before loan contract execution, including APR, recovery mechanism, and cooling-off period details",
+      "department": "Compliance",
+      "priority": "Critical",
+      "deadline": "2022-11-30",
+      "validation_notes": "Section 5(a) mandates KFS disclosure before contract execution — Compliance owns disclosure obligations, Critical due to immediate regulatory mandate effective November 30, 2022"
+    },
+    {
+      "action": "Implement system to compute and display Annual Percentage Rate (APR) on net disbursed amount for all digital loan products",
+      "department": "IT",
+      "priority": "Critical",
+      "deadline": "2022-11-30",
+      "validation_notes": "Section 5(b) requires APR disclosure upfront — IT owns platform implementation, Critical priority due to mandatory regulatory requirement with explicit November 2022 deadline"
+    },
+    {
+      "action": "Designate a Nodal Grievance Redressal Officer for digital lending complaints and display contact details on website and DLA",
+      "department": "Legal",
+      "priority": "High",
+      "deadline": "2022-11-30",
+      "validation_notes": "Section 6(a) mandates grievance officer designation — Legal owns compliance obligations, High priority due to customer-facing regulatory requirement"
+    },
+    {
+      "action": "Ensure all borrower data collected by Digital Lending Apps is stored exclusively on servers located within India",
+      "department": "IT",
+      "priority": "High",
+      "deadline": "2022-11-30",
+      "validation_notes": "Section 8(b) mandates data localisation — IT owns infrastructure decisions, High priority due to data sovereignty requirement"
+    },
+    {
+      "action": "Conduct annual audit of all Lending Service Provider (LSP) integrations by an independent audit firm and submit report to Board's Risk Management Committee within 90 days of financial year-end",
+      "department": "Compliance",
+      "priority": "High",
+      "deadline": null,
+      "validation_notes": "Section 9(b) mandates annual LSP audit — Compliance oversees audit obligations, High priority due to ongoing governance requirement"
+    },
+    {
+      "action": "Implement comprehensive cybersecurity framework for all digital lending applications including penetration testing, vulnerability assessments, and security patch management",
+      "department": "IT",
+      "priority": "Critical",
+      "deadline": "2022-11-30",
+      "validation_notes": "Section 10(a) mandates cybersecurity framework — IT owns security implementation, Critical due to mandatory regulatory requirement"
+    },
+    {
+      "action": "Submit quarterly report to RBI on digital loan volume, outstanding portfolio, LSPs engaged, and customer grievances by December 31, 2022 for first report",
+      "department": "Compliance",
+      "priority": "High",
+      "deadline": "2022-12-31",
+      "validation_notes": "Section 11(a-b) mandates quarterly regulatory reporting — Compliance owns regulatory submissions, High priority with explicit December 2022 deadline"
+    },
+    {
+      "action": "Board of Directors to approve a Digital Lending Policy covering risk management, customer protection, technology governance, LSP oversight, and grievance framework within 90 days",
+      "department": "Legal",
+      "priority": "High",
+      "deadline": null,
+      "validation_notes": "Section 12(a) mandates Board-approved policy within 90 days — Legal supports policy drafting, High priority due to governance requirement"
+    }
+  ]
+}

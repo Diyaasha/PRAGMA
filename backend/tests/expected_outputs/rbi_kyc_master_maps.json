@@ -1,0 +1,66 @@
+{
+  "circular_name": "RBI KYC Master Direction 2016 (Updated 2023)",
+  "circular_file": "rbi_kyc_master.txt",
+  "source": "RBI",
+  "expected_map_count_min": 4,
+  "expected_map_count_max": 7,
+  "required_departments": ["Compliance"],
+  "required_priorities": ["Critical", "High"],
+  "validation_rules": {
+    "all_departments_valid": ["IT", "Compliance", "Risk", "Treasury", "Legal"],
+    "all_priorities_valid": ["Critical", "High", "Medium", "Low"],
+    "min_action_length": 15,
+    "deadline_format": "YYYY-MM-DD or null"
+  },
+  "must_contain_action_keywords": [
+    "KYC",
+    "AML",
+    "Suspicious Transaction",
+    "training",
+    "reporting"
+  ],
+  "sample_valid_maps": [
+    {
+      "action": "Implement periodic KYC record updation: every 2 years for high-risk, 8 years for medium-risk, and 10 years for low-risk customers",
+      "department": "Compliance",
+      "priority": "Critical",
+      "deadline": null,
+      "validation_notes": "Section 3(b) mandates periodic KYC update by risk category — Compliance owns CDD obligations, Critical due to core regulatory requirement"
+    },
+    {
+      "action": "Designate a Principal Officer responsible for filing Suspicious Transaction Reports (STRs) with FIU-IND within 7 working days of suspicion formation",
+      "department": "Compliance",
+      "priority": "Critical",
+      "deadline": null,
+      "validation_notes": "Section 6(a-b) mandates STR filing and Principal Officer designation — Compliance owns AML reporting, Critical due to legal obligation under PMLA"
+    },
+    {
+      "action": "Implement Board-approved customer risk categorisation policy defining criteria for Low, Medium, and High risk classifications",
+      "department": "Risk",
+      "priority": "High",
+      "deadline": null,
+      "validation_notes": "Section 4(a) mandates risk categorisation policy — Risk owns risk framework design, High priority due to governance requirement"
+    },
+    {
+      "action": "Conduct mandatory AML/CFT training for all frontline staff at least once per calendar year; complete induction training for new employees within 30 days of joining",
+      "department": "Compliance",
+      "priority": "High",
+      "deadline": null,
+      "validation_notes": "Section 8(a-b) mandates annual AML/CFT training — Compliance owns training obligations, High priority due to recurring regulatory requirement"
+    },
+    {
+      "action": "Submit quarterly compliance report on KYC/AML/CFT to RBI within 21 days of quarter-end, certified by Chief Compliance Officer",
+      "department": "Compliance",
+      "priority": "High",
+      "deadline": null,
+      "validation_notes": "Section 10(a-b) mandates quarterly RBI reporting — Compliance owns regulatory submissions, High priority due to recurring deadline obligation"
+    },
+    {
+      "action": "Implement centralised KYC records management system with cross-branch, cross-product access and 10-year record retention capability",
+      "department": "IT",
+      "priority": "Medium",
+      "deadline": null,
+      "validation_notes": "Section 9(b-c) mandates centralised KYC system — IT owns system implementation, Medium priority due to technology infrastructure requirement"
+    }
+  ]
+}
