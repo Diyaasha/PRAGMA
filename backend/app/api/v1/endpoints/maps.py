@@ -17,7 +17,11 @@ import uuid
 
 from app.database import get_db
 from app.schemas.map import MAPOut, MAPDetailOut, MAPStatusUpdate
-from app.services.map_service import get_maps, get_map_by_id, update_map_status
+from app.services.map_service import (
+    get_maps,
+    resolve_map_by_identifier,
+    update_map_status,
+)
 
 router = APIRouter()
 
@@ -37,11 +41,11 @@ async def list_maps(
 
 
 @router.get("/{map_id}", response_model=MAPDetailOut)
-async def get_map(map_id: uuid.UUID, db: Session = Depends(get_db)):
+async def get_map(map_id: str, db: Session = Depends(get_db)):
     """
     Get a single MAP with approval history.
     """
-    map_obj = get_map_by_id(db, map_id)
+    map_obj = resolve_map_by_identifier(db, map_id)
     if not map_obj:
         raise HTTPException(
             status_code=404,
@@ -52,15 +56,21 @@ async def get_map(map_id: uuid.UUID, db: Session = Depends(get_db)):
 
 @router.patch("/{map_id}/status")
 async def update_status(
-    map_id: uuid.UUID,
+    map_id: str,
     payload: MAPStatusUpdate,
     db: Session = Depends(get_db)
 ):
     """
     Update MAP status.
     """
+    map_obj = resolve_map_by_identifier(db, map_id)
+    if not map_obj:
+        raise HTTPException(
+            status_code=404,
+            detail="MAP not found"
+        )
     try:
-        updated_map = update_map_status(db, map_id, payload.status)
+        updated_map = update_map_status(db, map_obj.id, payload.status)
         return {
             "message": "MAP status updated successfully",
             "map": MAPOut.model_validate(updated_map)

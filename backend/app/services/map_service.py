@@ -112,6 +112,65 @@ def get_map_by_id(db: Session, map_id: uuid.UUID) -> MAP | None:
     return db.query(MAP).filter(MAP.id == map_id).first()
 
 
+def parse_map_identifier(map_identifier: uuid.UUID | str | int) -> tuple[uuid.UUID | None, int | None]:
+    """
+    Parse incoming map identifier into UUID and legacy numeric index forms.
+    Legacy numeric IDs are 1-based positions for compatibility with older clients.
+    """
+    if isinstance(map_identifier, uuid.UUID):
+        return map_identifier, None
+
+    if isinstance(map_identifier, int):
+        return None, map_identifier if map_identifier > 0 else None
+
+    if isinstance(map_identifier, str):
+        raw = map_identifier.strip()
+        if not raw:
+            return None, None
+
+        # UUID string
+        try:
+            return uuid.UUID(raw), None
+        except ValueError:
+            pass
+
+        # Legacy numeric string
+        if raw.isdigit():
+            legacy_id = int(raw)
+            return None, legacy_id if legacy_id > 0 else None
+
+    return None, None
+
+
+def get_map_by_legacy_index(db: Session, legacy_id: int) -> MAP | None:
+    """
+    Resolve legacy 1-based map IDs used by in-memory prototypes.
+    Maps are ordered deterministically by creation timestamp and UUID.
+    """
+    if legacy_id <= 0:
+        return None
+
+    return (
+        db.query(MAP)
+        .order_by(MAP.created_at.asc(), MAP.id.asc())
+        .offset(legacy_id - 1)
+        .limit(1)
+        .first()
+    )
+
+
+def resolve_map_by_identifier(db: Session, map_identifier: uuid.UUID | str | int) -> MAP | None:
+    """
+    Resolve a MAP by UUID or legacy numeric identifier.
+    """
+    map_uuid, legacy_id = parse_map_identifier(map_identifier)
+    if map_uuid:
+        return get_map_by_id(db, map_uuid)
+    if legacy_id is not None:
+        return get_map_by_legacy_index(db, legacy_id)
+    return None
+
+
 def update_map_status(db: Session, map_id: uuid.UUID, new_status: str) -> MAP:
     """
     Update a MAP's status with validation on allowed state transitions.
