@@ -172,7 +172,7 @@ def _validate_and_normalise(maps: list[dict]) -> list[dict]:
             priority = "Medium"
 
         deadline = m.get("deadline")
-        if deadline and str(deadline).lower() in ("null", "none", "n/a", ""):
+        if deadline is None or str(deadline).strip().lower() in ("null", "none", "n/a", ""):
             deadline = None
 
         result.append({
