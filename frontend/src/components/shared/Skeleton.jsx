@@ -1,6 +1,6 @@
 export function SkeletonMetricCard() {
   return (
-    <div className="rounded-xl border border-line dark:border-gray-800 bg-white dark:bg-gray-950 px-5 py-4">
+    <div className="rounded-xl border border-line bg-white dark:bg-card px-5 py-4">
       <div className="flex items-center gap-2">
         <div className="skeleton h-1.5 w-1.5 rounded-full" />
         <div className="skeleton h-2.5 w-24 rounded" />
@@ -13,7 +13,7 @@ export function SkeletonMetricCard() {
 
 export function SkeletonCard({ lines = 3 }) {
   return (
-    <div className="rounded-xl border border-line dark:border-gray-800 bg-white dark:bg-gray-950 p-5 space-y-3">
+    <div className="rounded-xl border border-line bg-white dark:bg-card p-5 space-y-3">
       <div className="skeleton h-3 w-32 rounded" />
       {Array.from({ length: lines }).map((_, i) => (
         <div
@@ -27,7 +27,7 @@ export function SkeletonCard({ lines = 3 }) {
 
 export function SkeletonTableRows({ rows = 5, cols = 6 }) {
   return Array.from({ length: rows }).map((_, r) => (
-    <tr key={r} className="border-b border-line dark:border-gray-800">
+    <tr key={r} className="border-b border-line">
       {Array.from({ length: cols }).map((_, c) => (
         <td key={c} className="px-4 py-3">
           <div

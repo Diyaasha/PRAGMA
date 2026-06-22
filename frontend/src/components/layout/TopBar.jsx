@@ -29,7 +29,7 @@ export default function TopBar() {
   })
 
   return (
-    <header className="border-b border-line bg-paper/95 dark:bg-[#070C14]/95 backdrop-blur-sm sticky top-0 z-40">
+    <header className="border-b border-line bg-paper/95 dark:bg-paper/95 backdrop-blur-sm sticky top-0 z-40">
       {/* Main bar */}
       <div className="flex items-center justify-between gap-6 px-8 py-3">
         {/* Left: Page identity */}
@@ -37,7 +37,7 @@ export default function TopBar() {
           <p className="font-mono text-[9px] font-semibold uppercase tracking-[0.24em] text-brass-deep">
             {page.ref}
           </p>
-          <h2 className="mt-0.5 font-serif text-xl font-semibold leading-none tracking-tight text-ink dark:text-gray-100 truncate">
+          <h2 className="mt-0.5 font-serif text-xl font-semibold leading-none tracking-tight text-ink dark:text-[#e8edf5] truncate">
             {page.title}
           </h2>
         </div>
@@ -56,7 +56,7 @@ export default function TopBar() {
           <div className="hidden md:flex items-center gap-2">
             <div className="flex items-center gap-1.5">
               <Building2 size={11} className="text-brass" />
-              <span className="font-mono text-[11px] font-semibold text-ink dark:text-gray-200">Canara Bank</span>
+              <span className="font-mono text-[11px] font-semibold text-ink dark:text-[#e8edf5]">Canara Bank</span>
             </div>
             <span className="rounded border border-brass/40 bg-brass-soft dark:bg-brass/10 px-1.5 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-wider text-brass-deep dark:text-brass">
               Demo
@@ -79,7 +79,7 @@ export default function TopBar() {
 
           {/* System status pill */}
           <div className={`flex items-center gap-2 rounded-full border px-3 py-1.5 ${
-            !checked  ? 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800' :
+            !checked  ? 'border-line bg-white dark:bg-surface' :
             online    ? 'border-success-200 dark:border-green-800 bg-success-50 dark:bg-green-900/30' :
                         'border-warning-200 dark:border-amber-800 bg-warning-50 dark:bg-amber-900/30'
           }`}>

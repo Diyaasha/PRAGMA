@@ -26,7 +26,7 @@ const STATUS_PALETTE = [
 ]
 
 const DEPT_COLORS = {
-  IT: '#2B4A8F', Compliance: '#B08D57', Risk: '#7C3AED',
+  IT: '#2B4A8F', Compliance: '#c69b4f', Risk: '#7C3AED',
   Legal: '#0891B2', Treasury: '#065F46',
 }
 
@@ -36,7 +36,7 @@ function Trend({ dir, label }) {
     down: { glyph: '↓', cls: 'text-danger-700 dark:text-red-400'  },
     warn: { glyph: '●', cls: 'text-warning-700 dark:text-amber-400' },
     ok:   { glyph: '✓', cls: 'text-success-700 dark:text-green-400' },
-  }[dir] || { glyph: '—', cls: 'text-gray-400' }
+  }[dir] || { glyph: '—', cls: 'text-[#8b98aa]' }
 
   return (
     <div className={`mt-1 flex items-center gap-1 font-mono text-[10px] font-medium ${cfg.cls}`}>
@@ -53,52 +53,48 @@ function CriticalActionsWidget({ maps }) {
 
   const critical = useMemo(() => maps
     .filter((m) => {
-      const prio     = (m.priority || '').toLowerCase()
-      const status   = sk(m.status)
-      const overdue  = m.deadline && new Date(m.deadline) < today
+      const prio    = (m.priority || '').toLowerCase()
+      const status  = sk(m.status)
+      const overdue = m.deadline && new Date(m.deadline) < today
       return (prio === 'critical' || overdue) && !['COMPLETED', 'REJECTED'].includes(status)
     })
-    .sort((a, b) => {
-      const ap = a.priority === 'Critical' ? 0 : 1
-      const bp = b.priority === 'Critical' ? 0 : 1
-      return ap - bp
-    })
+    .sort((a, b) => (a.priority === 'Critical' ? 0 : 1) - (b.priority === 'Critical' ? 0 : 1))
     .slice(0, 4),
   [maps])
 
   if (!critical.length) return null
 
   return (
-    <div className="rounded-xl border border-line dark:border-gray-800 bg-white dark:bg-gray-950 overflow-hidden">
-      <div className="flex items-center gap-2 border-b border-line dark:border-gray-800 bg-paper/40 dark:bg-gray-900/40 px-5 py-3">
+    <div className="rounded-xl border border-line bg-white dark:bg-card overflow-hidden">
+      <div className="flex items-center gap-2 border-b border-line bg-paper/40 dark:bg-surface/40 px-5 py-3">
         <AlertTriangle size={13} className="text-danger dark:text-red-400 flex-shrink-0" />
-        <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-brass-deep dark:text-gray-500">
+        <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-brass-deep dark:text-brass">
           Critical Actions Required
         </p>
         <span className="ml-auto rounded-full bg-danger/10 dark:bg-red-900/30 px-2 py-0.5 font-mono text-[9px] font-bold text-danger dark:text-red-400">
           {critical.length}
         </span>
       </div>
-      <div className="divide-y divide-line dark:divide-gray-800">
+      <div className="divide-y divide-line">
         {critical.map((m) => {
           const overdue = m.deadline && new Date(m.deadline) < today
           return (
             <button
               key={m.id}
               onClick={() => navigate('/maps')}
-              className="w-full text-left px-5 py-3.5 hover:bg-paper/40 dark:hover:bg-gray-900/40 transition-colors"
+              className="w-full text-left px-5 py-3.5 hover:bg-paper/40 dark:hover:bg-surface/40 transition-colors"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-[12.5px] font-medium text-ink dark:text-gray-200 leading-snug">
+                  <p className="truncate text-[12.5px] font-medium text-ink dark:text-[#e8edf5] leading-snug">
                     {m.action}
                   </p>
                   <div className="mt-1.5 flex items-center gap-2 flex-wrap">
-                    <span className="font-mono text-[9px] uppercase tracking-wide text-gray-400 dark:text-gray-600">
+                    <span className="font-mono text-[9px] uppercase tracking-wide text-[#8b98aa]">
                       {m.department}
                     </span>
                     {m.source_clause && (
-                      <span className="font-mono text-[9px] text-brass dark:text-brass/80">
+                      <span className="font-mono text-[9px] text-brass">
                         {m.source_clause}
                       </span>
                     )}
@@ -113,13 +109,13 @@ function CriticalActionsWidget({ maps }) {
                 <div className="flex-shrink-0 flex flex-col items-end gap-1">
                   <span className={`rounded border px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider ${
                     m.priority === 'Critical'
-                      ? 'border-danger-200 dark:border-red-800 bg-danger-50 dark:bg-red-900/30 text-danger-700 dark:text-red-400'
-                      : 'border-warning-200 dark:border-amber-800 bg-warning-50 dark:bg-amber-900/30 text-warning-700 dark:text-amber-400'
+                      ? 'border-danger-200 dark:border-red-800/60 bg-danger-50 dark:bg-red-900/30 text-danger-700 dark:text-red-400'
+                      : 'border-warning-200 dark:border-amber-800/60 bg-warning-50 dark:bg-amber-900/30 text-warning-700 dark:text-amber-400'
                   }`}>
                     {m.priority}
                   </span>
                   {m.risk?.score && (
-                    <span className="font-mono text-[9px] text-gray-400 dark:text-gray-600">
+                    <span className="font-mono text-[9px] text-[#8b98aa]">
                       Risk {m.risk.score}/100
                     </span>
                   )}
@@ -129,7 +125,7 @@ function CriticalActionsWidget({ maps }) {
           )
         })}
       </div>
-      <div className="border-t border-line dark:border-gray-800 px-5 py-2">
+      <div className="border-t border-line px-5 py-2">
         <button
           onClick={() => navigate('/maps')}
           className="font-mono text-[10px] text-primary-600 dark:text-primary-400 hover:underline"
@@ -145,7 +141,7 @@ function DeptRiskHeatmap({ maps }) {
   const data = useMemo(() => {
     const depts = ['IT', 'Compliance', 'Risk', 'Legal', 'Treasury']
     return depts.map((dept) => {
-      const dMaps = maps.filter((m) => m.department === dept)
+      const dMaps   = maps.filter((m) => m.department === dept)
       const pending  = dMaps.filter((m) => sk(m.status) === 'PENDING').length
       const critical = dMaps.filter((m) => (m.priority || '').toLowerCase() === 'critical').length
       const avgRisk  = dMaps.length
@@ -158,32 +154,31 @@ function DeptRiskHeatmap({ maps }) {
   if (!data.length) return null
 
   return (
-    <div className="rounded-xl border border-line dark:border-gray-800 bg-white dark:bg-gray-950 p-5">
-      <p className="mb-4 font-mono text-[9px] uppercase tracking-[0.18em] text-brass-deep dark:text-gray-500">
+    <div className="rounded-xl border border-line bg-white dark:bg-card p-5">
+      <p className="mb-4 font-mono text-[9px] uppercase tracking-[0.18em] text-brass-deep dark:text-brass">
         Department Risk Heatmap
       </p>
       <div className="space-y-2.5">
         {data.map((d) => {
-          const pct = d.total ? Math.round((d.pending / d.total) * 100) : 0
           const riskLevel = d.avgRisk >= 76 ? 'danger' : d.avgRisk >= 51 ? 'warning' : d.avgRisk >= 26 ? 'brass' : 'success'
           const barCls = { danger: 'bg-danger', warning: 'bg-warning', brass: 'bg-brass', success: 'bg-success' }[riskLevel]
           return (
             <div key={d.dept}>
               <div className="mb-1 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-[11px] font-semibold text-ink dark:text-gray-200">{d.dept}</span>
-                  <span className="font-mono text-[10px] text-gray-400 dark:text-gray-600">{d.total} MAPs</span>
+                  <span className="font-mono text-[11px] font-semibold text-ink dark:text-[#e8edf5]">{d.dept}</span>
+                  <span className="font-mono text-[10px] text-[#8b98aa]">{d.total} MAPs</span>
                   {d.critical > 0 && (
                     <span className="rounded bg-danger-50 dark:bg-red-900/30 px-1 py-0.5 font-mono text-[9px] font-bold text-danger dark:text-red-400">
                       {d.critical} critical
                     </span>
                   )}
                 </div>
-                <span className="font-mono text-[10px] tabular-nums text-gray-500 dark:text-gray-500">
+                <span className="font-mono text-[10px] tabular-nums text-[#8b98aa]">
                   Risk {d.avgRisk}
                 </span>
               </div>
-              <div className="h-2 rounded-full bg-gray-100 dark:bg-gray-800 overflow-hidden">
+              <div className="h-2 rounded-full bg-line dark:bg-surface overflow-hidden">
                 <div
                   className={`h-full rounded-full transition-all duration-700 ${barCls}`}
                   style={{ width: `${Math.max(d.avgRisk, 4)}%` }}
@@ -193,7 +188,7 @@ function DeptRiskHeatmap({ maps }) {
           )
         })}
       </div>
-      <p className="mt-3 font-mono text-[10px] text-gray-400 dark:text-gray-600">
+      <p className="mt-3 font-mono text-[10px] text-[#8b98aa]">
         Bar = avg. risk score across all MAPs in department
       </p>
     </div>
@@ -229,8 +224,7 @@ export default function Dashboard() {
   const trends = useMemo(() => {
     const extractEvts  = events.filter((e) => e.event_type?.toUpperCase().includes('EXTRACT'))
     const approvalEvts = events.filter((e) => e.event_type?.toUpperCase().includes('APPROVED'))
-    const uploadEvts   = events.filter((e) => e.event_type?.toUpperCase().includes('UPLOAD'))
-    return { extracted: extractEvts.length, approved: approvalEvts.length, uploads: uploadEvts.length }
+    return { extracted: extractEvts.length, approved: approvalEvts.length, uploads: events.filter((e) => e.event_type?.toUpperCase().includes('UPLOAD')).length }
   }, [events])
 
   const statusData = useMemo(
@@ -251,7 +245,7 @@ export default function Dashboard() {
     {
       label: 'Total MAPs',
       value: maps.length,
-      dot: 'bg-ink',
+      dot: 'bg-ink dark:bg-primary-400',
       sub: `${circulars.length} circular${circulars.length !== 1 ? 's' : ''} processed`,
       trend: maps.length > 0 ? { dir: 'up', label: `${maps.length} auto-extracted` } : null,
     },
@@ -290,7 +284,7 @@ export default function Dashboard() {
       <AlertBanner maps={maps} circulars={circulars} />
 
       {usingMock && (
-        <div className="rounded-md border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20 px-4 py-2 text-sm text-amber-800 dark:text-amber-300">
+        <div className="rounded-md border border-amber-200 dark:border-amber-800/60 bg-amber-50 dark:bg-amber-900/20 px-4 py-2 text-sm text-amber-800 dark:text-amber-300">
           Backend not reachable — showing representative demo data.
         </div>
       )}
@@ -302,18 +296,18 @@ export default function Dashboard() {
           : CARDS.map((c) => (
               <div
                 key={c.label}
-                className="rounded-xl border border-line dark:border-gray-800 bg-white dark:bg-gray-950 px-5 py-4 animate-fadeIn"
+                className="rounded-xl border border-line bg-white dark:bg-card px-5 py-4 animate-fadeIn"
               >
                 <div className="flex items-center gap-2">
                   <span className={`h-1.5 w-1.5 flex-shrink-0 rounded-full ${c.dot}`} />
-                  <p className="truncate text-[10px] font-semibold uppercase tracking-[0.1em] text-gray-500 dark:text-gray-600">
+                  <p className="truncate text-[10px] font-semibold uppercase tracking-[0.1em] text-[#8b98aa]">
                     {c.label}
                   </p>
                 </div>
-                <p className="mt-1.5 font-serif text-3xl font-semibold tabular-nums leading-none text-ink dark:text-gray-100">
+                <p className="mt-1.5 font-serif text-3xl font-semibold tabular-nums leading-none text-ink dark:text-[#e8edf5]">
                   {c.value}
                 </p>
-                <p className="mt-1 text-[11px] text-gray-400 dark:text-gray-600">{c.sub}</p>
+                <p className="mt-1 text-[11px] text-[#8b98aa]">{c.sub}</p>
                 {c.trend && <Trend dir={c.trend.dir} label={c.trend.label} />}
               </div>
             ))}
@@ -334,17 +328,17 @@ export default function Dashboard() {
           <DepartmentWorkload maps={maps} />
         </div>
 
-        <div className="lg:col-span-2 rounded-xl border border-line dark:border-gray-800 bg-white dark:bg-gray-950 p-6">
-          <p className="mb-4 font-mono text-[9px] uppercase tracking-[0.18em] text-brass-deep dark:text-gray-500">
+        <div className="lg:col-span-2 rounded-xl border border-line bg-white dark:bg-card p-5">
+          <p className="mb-4 font-mono text-[9px] uppercase tracking-[0.18em] text-brass-deep dark:text-brass">
             Status Distribution
           </p>
           {statusData.length === 0 ? (
             <div className="flex h-44 flex-col items-center justify-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-line dark:border-gray-800 bg-paper dark:bg-gray-900">
-                <span className="font-mono text-[20px] text-gray-300 dark:text-gray-700">○</span>
+              <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-line bg-paper dark:bg-surface">
+                <span className="font-mono text-[20px] text-[#8b98aa]/40">○</span>
               </div>
-              <p className="text-sm text-gray-400 dark:text-gray-600">No MAPs recorded yet.</p>
-              <p className="font-mono text-[10px] text-gray-300 dark:text-gray-700">Upload a circular to begin.</p>
+              <p className="text-sm text-[#8b98aa]">No MAPs recorded yet.</p>
+              <p className="font-mono text-[10px] text-[#8b98aa]/60">Upload a circular to begin.</p>
             </div>
           ) : (
             <>
@@ -368,10 +362,11 @@ export default function Dashboard() {
                   <Tooltip
                     contentStyle={{
                       borderRadius: 8,
-                      border: '1px solid var(--line)',
+                      border: '1px solid rgb(var(--line))',
                       fontSize: 12,
                       fontFamily: 'IBM Plex Sans',
-                      background: 'rgb(var(--paper))',
+                      background: 'rgb(var(--card))',
+                      color: 'inherit',
                     }}
                   />
                 </PieChart>
@@ -380,7 +375,7 @@ export default function Dashboard() {
                 {statusData.map((d) => (
                   <div key={d.name} className="flex min-w-0 items-center gap-1.5">
                     <span className="h-2 w-2 flex-shrink-0 rounded-full" style={{ background: d.color }} />
-                    <span className="truncate text-[11px] text-gray-600 dark:text-gray-400">
+                    <span className="truncate text-[11px] text-[#8b98aa]">
                       {d.name} ({d.value})
                     </span>
                   </div>

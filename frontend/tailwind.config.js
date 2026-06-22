@@ -17,13 +17,16 @@ export default {
           800: '#0B1F45',
           900: '#041E42',
         },
-        ink:   '#041E42',                              // Canara Bank navy — constant
-        paper: 'rgb(var(--paper) / <alpha-value>)',    // cream ↔ dark bg
-        line:  'rgb(var(--line)  / <alpha-value>)',    // warm border ↔ dark border
+        ink:     '#041E42',                               // Canara Bank navy — constant
+        paper:   'rgb(var(--paper)   / <alpha-value>)',   // cream ↔ deep navy
+        surface: 'rgb(var(--surface) / <alpha-value>)',   // elevated panel
+        card:    'rgb(var(--card)    / <alpha-value>)',   // card surface
+        line:    'rgb(var(--line)    / <alpha-value>)',   // hairline border
         brass: {
-          DEFAULT: '#B08D57',   // gold
+          DEFAULT: '#c69b4f',   // enterprise gold accent
           soft:    '#F0E8D5',
-          deep:    '#8A6B3A',
+          deep:    '#9b7232',
+          muted:   '#8b98aa',   // dark mode muted text
         },
         success: {
           DEFAULT: '#067647',
@@ -62,11 +65,16 @@ export default {
           '0%':   { opacity: '0', transform: 'translateX(24px)' },
           '100%': { opacity: '1', transform: 'translateX(0)' },
         },
+        pulseRing: {
+          '0%, 100%': { opacity: '1' },
+          '50%':      { opacity: '0.4' },
+        },
       },
       animation: {
-        shimmer:  'shimmer 2s infinite linear',
-        fadeIn:   'fadeIn 0.2s ease-out',
-        slideIn:  'slideIn 0.25s ease-out',
+        shimmer:   'shimmer 2s infinite linear',
+        fadeIn:    'fadeIn 0.2s ease-out',
+        slideIn:   'slideIn 0.25s ease-out',
+        pulseRing: 'pulseRing 2s ease-in-out infinite',
       },
     },
   },

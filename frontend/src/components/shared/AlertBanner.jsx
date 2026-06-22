@@ -65,7 +65,7 @@ export default function AlertBanner({ maps = [], circulars = [] }) {
             <Shield size={8} />
             {isCritical ? 'SEVERITY: HIGH' : 'ATTENTION REQUIRED'}
           </span>
-          <span className="font-mono text-[10px] text-gray-500">
+          <span className="font-mono text-[10px] text-[#8b98aa]">
             {regSource} Advisory · {new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
           </span>
         </div>
@@ -76,7 +76,7 @@ export default function AlertBanner({ maps = [], circulars = [] }) {
         >
           {circularTitle}
         </p>
-        <p className="mt-0.5 text-[13px] text-gray-600 dark:text-gray-300">
+        <p className="mt-0.5 text-[13px] text-gray-600 dark:text-[#e8edf5]/80">
           {criticalPending.length > 0 && (
             <strong className="text-danger-700 font-semibold">
               {criticalPending.length} Critical{' '}

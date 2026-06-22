@@ -92,8 +92,8 @@ export default function EventLog() {
                 onClick={() => setFamily(f)}
                 className={`rounded-full border px-2.5 py-0.5 font-mono text-[9px] font-medium uppercase tracking-wide transition-colors ${
                   family === f
-                    ? 'border-ink bg-ink text-white'
-                    : 'border-line bg-white text-gray-500 hover:border-gray-300 hover:text-gray-700'
+                    ? 'border-ink bg-ink text-white dark:border-[#c69b4f] dark:bg-[#c69b4f]/20 dark:text-[#c69b4f]'
+                    : 'border-line bg-white dark:bg-surface text-[#8b98aa] hover:border-line/80 hover:text-ink dark:hover:text-[#e8edf5]'
                 }`}
               >
                 {f}
@@ -115,7 +115,7 @@ export default function EventLog() {
                 className={`rounded-full border px-2.5 py-0.5 font-mono text-[9px] font-medium uppercase tracking-wide transition-colors ${
                   dateRange === r
                     ? 'border-brass bg-brass text-white'
-                    : 'border-line bg-white text-gray-500 hover:border-gray-300 hover:text-gray-700'
+                    : 'border-line bg-white dark:bg-surface text-[#8b98aa] hover:border-brass/40 hover:text-ink dark:hover:text-[#e8edf5]'
                 }`}
               >
                 {r}
@@ -133,7 +133,7 @@ export default function EventLog() {
               <select
                 value={actor}
                 onChange={(e) => setActor(e.target.value)}
-                className="rounded-lg border border-line bg-white py-1 pl-2 pr-6 text-[11px] text-ink focus:border-primary-400 focus:outline-none focus:ring-1 focus:ring-primary-400"
+                className="rounded-lg border border-line bg-white dark:bg-surface py-1 pl-2 pr-6 text-[11px] text-ink dark:text-[#e8edf5] focus:border-primary-400 focus:outline-none focus:ring-1 focus:ring-primary-400"
               >
                 <option value="">All actors</option>
                 {actors.map((a) => <option key={a} value={a}>{a}</option>)}
@@ -145,7 +145,7 @@ export default function EventLog() {
         {hasFilters && (
           <button
             onClick={clearAll}
-            className="flex items-center gap-1 rounded-lg border border-line bg-white px-2.5 py-1 text-[11px] text-gray-500 hover:bg-gray-50"
+            className="flex items-center gap-1 rounded-lg border border-line bg-white dark:bg-card px-2.5 py-1 text-[11px] text-gray-500 hover:bg-gray-50"
           >
             <X size={11} /> Clear
           </button>
@@ -157,7 +157,7 @@ export default function EventLog() {
       </div>
 
       {/* ── SIEM-style log table ── */}
-      <div className="overflow-hidden rounded-xl border border-line bg-white">
+      <div className="overflow-hidden rounded-xl border border-line bg-white dark:bg-card">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
             <thead className="border-b border-line bg-paper/60">

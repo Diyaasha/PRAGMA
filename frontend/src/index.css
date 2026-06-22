@@ -2,15 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Design tokens — RGB channel values so Tailwind /opacity modifiers work ── */
+/* ── Design tokens — RGB channels so Tailwind /opacity modifiers work ── */
 :root {
-  --paper: 248 246 242;   /* #F8F6F2  cream background */
-  --line:  226 221 214;   /* #E2DDD6  warm hairline border */
+  --paper:   248 246 242;   /* #F8F6F2  cream background      */
+  --surface: 241 238 232;   /* #F1EEE8  elevated surface      */
+  --card:    234 230 222;   /* #EAE6DE  card background       */
+  --line:    226 221 214;   /* #E2DDD6  warm hairline border  */
 }
 
 .dark {
-  --paper: 13 17 23;      /* #0D1117  Bloomberg-dark background */
-  --line:  30 40 55;      /* #1E2837  dark border */
+  --paper:   7   16  25;    /* #071019  deep navy void        */
+  --surface: 13  23  38;    /* #0d1726  elevated panel        */
+  --card:    18  32  51;    /* #122033  card surface          */
+  --line:    32  50  71;    /* #203247  structural border     */
 }
 
 @layer base {
@@ -27,7 +31,7 @@
     transition: background-color 0.2s ease, color 0.2s ease;
   }
   .dark body {
-    color: #D1DCE8;
+    color: #e8edf5;
   }
 }
 
@@ -40,7 +44,7 @@
     animation: shimmer 2s infinite linear;
   }
   .dark .skeleton {
-    background: linear-gradient(90deg, #1E2835 25%, #252F3E 50%, #1E2835 75%);
+    background: linear-gradient(90deg, #0d1726 25%, #122033 50%, #0d1726 75%);
     background-size: 1000px 100%;
   }
 }
@@ -50,18 +54,14 @@
   100% { background-position:  1000px 0; }
 }
 
-/* ── Slim scrollbar — light mode ── */
+/* ── Slim scrollbar ── */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-thumb {
-  background: #C9C0B3;
-  border-radius: 8px;
-}
+::-webkit-scrollbar-thumb { background: #C9C0B3; border-radius: 8px; }
 ::-webkit-scrollbar-thumb:hover { background: #B0A598; }
 ::-webkit-scrollbar-track { background: transparent; }
 
-/* ── Slim scrollbar — dark mode ── */
-.dark ::-webkit-scrollbar-thumb { background: #2D3748; }
-.dark ::-webkit-scrollbar-thumb:hover { background: #4A5568; }
+.dark ::-webkit-scrollbar-thumb { background: #203247; }
+.dark ::-webkit-scrollbar-thumb:hover { background: #2d4860; }
 
 ::selection { background: #041E42; color: #F8F6F2; }
-.dark ::selection { background: #B08D57; color: #0D1117; }
+.dark ::selection { background: #c69b4f; color: #071019; }

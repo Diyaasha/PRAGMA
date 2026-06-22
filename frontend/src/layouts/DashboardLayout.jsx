@@ -5,14 +5,14 @@ import Toast from '../components/shared/Toast'
 
 export default function DashboardLayout() {
   return (
-    <div className="flex h-screen bg-paper text-gray-900 dark:text-gray-100">
+    <div className="flex h-screen bg-paper text-ink dark:text-[#e8edf5]">
       <Sidebar />
       <div className="flex flex-1 flex-col overflow-hidden">
         <TopBar />
-        <main className="flex-1 overflow-y-auto px-8 py-7">
+        <main className="flex-1 overflow-y-auto px-6 py-5">
           <Outlet />
         </main>
-        <footer className="border-t border-line bg-paper/80 dark:bg-[#070C14]/80 px-8 py-2 flex-shrink-0">
+        <footer className="border-t border-line bg-paper/80 dark:bg-paper/90 px-6 py-2 flex-shrink-0">
           <div className="flex items-center justify-between">
             <span className="font-mono text-[10px] text-gray-400 dark:text-gray-600">
               PRAGMA Regulatory Compliance System · Canara Bank Demo

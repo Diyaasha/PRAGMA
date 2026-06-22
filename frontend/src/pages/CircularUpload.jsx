@@ -385,13 +385,13 @@ export default function CircularUpload() {
         <div className="lg:col-span-2 space-y-4">
 
           {/* Metadata card */}
-          <div className="rounded-xl border border-line bg-white p-5">
-            <p className="mb-3.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-gray-500">
+          <div className="rounded-xl border border-line bg-white dark:bg-card p-5">
+            <p className="mb-3.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-[#8b98aa]">
               Circular Metadata
             </p>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               <div className="sm:col-span-2">
-                <label className="mb-1.5 block font-mono text-[10px] font-semibold uppercase tracking-wider text-gray-500">
+                <label className="mb-1.5 block font-mono text-[10px] font-semibold uppercase tracking-wider text-[#8b98aa]">
                   Title <span className="ml-0.5 text-danger-700">*</span>
                 </label>
                 <input
@@ -399,18 +399,18 @@ export default function CircularUpload() {
                   onChange={(e) => setTitle(e.target.value)}
                   disabled={submitting}
                   placeholder="e.g. RBI Master Direction — Digital Lending Guidelines 2025"
-                  className="w-full rounded-lg border border-line bg-paper/40 px-3 py-2.5 text-sm text-ink placeholder:text-gray-400 focus:border-primary-400 focus:outline-none focus:ring-1 focus:ring-primary-400 disabled:opacity-60"
+                  className="w-full rounded-lg border border-line bg-paper/40 dark:bg-surface/60 px-3 py-2.5 text-sm text-ink dark:text-[#e8edf5] placeholder:text-[#8b98aa] focus:border-primary-400 focus:outline-none focus:ring-1 focus:ring-primary-400 disabled:opacity-60"
                 />
               </div>
               <div>
-                <label className="mb-1.5 block font-mono text-[10px] font-semibold uppercase tracking-wider text-gray-500">
+                <label className="mb-1.5 block font-mono text-[10px] font-semibold uppercase tracking-wider text-[#8b98aa]">
                   Regulator <span className="ml-0.5 text-danger-700">*</span>
                 </label>
                 <select
                   value={source}
                   onChange={(e) => setSource(e.target.value)}
                   disabled={submitting}
-                  className="w-full rounded-lg border border-line bg-white px-3 py-2.5 text-sm text-ink focus:border-primary-400 focus:outline-none focus:ring-1 focus:ring-primary-400 disabled:opacity-60"
+                  className="w-full rounded-lg border border-line bg-white dark:bg-surface px-3 py-2.5 text-sm text-ink dark:text-[#e8edf5] focus:border-primary-400 focus:outline-none focus:ring-1 focus:ring-primary-400 disabled:opacity-60"
                 >
                   {CIRCULAR_SOURCES.map((s) => <option key={s} value={s}>{s}</option>)}
                 </select>
@@ -419,7 +419,7 @@ export default function CircularUpload() {
           </div>
 
           {/* Ingestion card */}
-          <div className="overflow-hidden rounded-xl border border-line bg-white">
+          <div className="overflow-hidden rounded-xl border border-line bg-white dark:bg-card">
 
             {/* Tab bar */}
             <div className="flex border-b border-line">
@@ -430,8 +430,8 @@ export default function CircularUpload() {
                   disabled={submitting}
                   className={`group flex flex-1 items-center justify-center gap-2 px-3 py-3.5 text-[13px] font-medium transition-colors disabled:pointer-events-none ${
                     activeTab === id
-                      ? 'border-b-2 border-ink bg-white text-ink'
-                      : 'border-b-2 border-transparent bg-paper/40 text-gray-500 hover:bg-paper hover:text-gray-700'
+                      ? 'border-b-2 border-brass bg-white dark:bg-card text-ink dark:text-[#e8edf5]'
+                      : 'border-b-2 border-transparent bg-paper/40 dark:bg-surface/40 text-[#8b98aa] hover:bg-paper dark:hover:bg-surface hover:text-ink dark:hover:text-[#e8edf5]'
                   }`}
                 >
                   <Icon size={13} className={activeTab === id ? 'text-ink' : 'text-gray-400 group-hover:text-gray-600'} />
@@ -489,7 +489,7 @@ export default function CircularUpload() {
                   disabled={submitting}
                   placeholder={`Paste the full regulatory circular text here…\n\nExample:\n"All regulated entities shall implement multi-factor authentication for all digital banking channels by 31 March 2026…"`}
                   rows={12}
-                  className="w-full resize-y rounded-lg border border-line bg-paper/30 px-3 py-3 text-sm text-ink placeholder:text-gray-400 focus:border-primary-400 focus:outline-none focus:ring-1 focus:ring-primary-400 disabled:opacity-60"
+                  className="w-full resize-y rounded-lg border border-line bg-paper/30 dark:bg-surface/40 px-3 py-3 text-sm text-ink dark:text-[#e8edf5] placeholder:text-[#8b98aa] focus:border-primary-400 focus:outline-none focus:ring-1 focus:ring-primary-400 disabled:opacity-60"
                 />
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-[11px] text-gray-400">
@@ -508,7 +508,7 @@ export default function CircularUpload() {
             {activeTab === 'url' && (
               <div className="space-y-4 p-5">
                 <div>
-                  <label className="mb-1.5 block font-mono text-[10px] font-semibold uppercase tracking-wider text-gray-500">
+                  <label className="mb-1.5 block font-mono text-[10px] font-semibold uppercase tracking-wider text-[#8b98aa]">
                     Circular URL
                   </label>
                   <div className="flex gap-2">
@@ -522,12 +522,12 @@ export default function CircularUpload() {
                       }}
                       disabled={submitting || urlFetching}
                       placeholder="Paste RBI / SEBI / MCA circular URL or Google Drive link"
-                      className="min-w-0 flex-1 rounded-lg border border-line bg-paper/40 px-3 py-2.5 text-sm text-ink placeholder:text-gray-400 focus:border-primary-400 focus:outline-none focus:ring-1 focus:ring-primary-400 disabled:opacity-60"
+                      className="min-w-0 flex-1 rounded-lg border border-line bg-paper/40 dark:bg-surface/60 px-3 py-2.5 text-sm text-ink dark:text-[#e8edf5] placeholder:text-[#8b98aa] focus:border-primary-400 focus:outline-none focus:ring-1 focus:ring-primary-400 disabled:opacity-60"
                     />
                     <button
                       onClick={fetchUrl}
                       disabled={!importUrl.trim() || submitting || urlFetching}
-                      className="inline-flex flex-shrink-0 items-center gap-2 rounded-lg border border-line bg-white px-4 py-2.5 text-[13px] font-medium text-gray-700 transition-colors hover:bg-paper disabled:cursor-not-allowed disabled:opacity-50"
+                      className="inline-flex flex-shrink-0 items-center gap-2 rounded-lg border border-line bg-white dark:bg-surface px-4 py-2.5 text-[13px] font-medium text-gray-700 dark:text-[#8b98aa] transition-colors hover:bg-paper dark:hover:bg-card disabled:cursor-not-allowed disabled:opacity-50"
                     >
                       {urlFetching
                         ? <><Loader2 size={13} className="animate-spin text-gray-500" /> Fetching…</>
@@ -566,7 +566,7 @@ export default function CircularUpload() {
                   </div>
                 )}
 
-                <p className="font-mono text-[10px] text-gray-400">
+                <p className="font-mono text-[10px] text-[#8b98aa]">
                   Supported: RBI · SEBI · MCA · IRDAI · NABARD portals · Google Drive public share links
                 </p>
               </div>
@@ -592,15 +592,15 @@ export default function CircularUpload() {
               Extract MAPs with Claude AI
             </button>
           ) : !extractedResult ? (
-            <div className="rounded-xl border border-line bg-white p-5 dark:border-gray-800 dark:bg-gray-950">
-              <p className="mb-3 font-mono text-[10px] font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-600">
+            <div className="rounded-xl border border-line bg-white dark:bg-card p-5">
+              <p className="mb-3 font-mono text-[10px] font-semibold uppercase tracking-wider text-[#8b98aa]">
                 Processing
               </p>
               <StageIndicator stage={stage} />
             </div>
           ) : (
             /* ── Document Intelligence Report (Phase 5) ── */
-            <div className="animate-fadeIn space-y-4 rounded-xl border border-success-200 bg-success-50/40 p-5 dark:border-green-800 dark:bg-green-900/10">
+            <div className="animate-fadeIn space-y-4 rounded-xl border border-success-200 dark:border-green-800/60 bg-success-50/40 dark:bg-green-900/10 p-5">
               <div className="flex items-center gap-2">
                 <ShieldCheck size={16} className="flex-shrink-0 text-success dark:text-green-400" />
                 <p className="font-mono text-[10px] font-semibold uppercase tracking-wider text-success-700 dark:text-green-400">
@@ -608,16 +608,16 @@ export default function CircularUpload() {
                 </p>
               </div>
 
-              <div className="rounded-lg border border-line bg-white px-4 py-3 dark:border-gray-800 dark:bg-gray-950">
-                <p className="mb-1 font-mono text-[9px] uppercase tracking-wider text-gray-400 dark:text-gray-600">
+              <div className="rounded-lg border border-line bg-white px-4 py-3 dark:bg-card">
+                <p className="mb-1 font-mono text-[9px] uppercase tracking-wider text-gray-400 dark:text-[#8b98aa]">
                   Processed Circular
                 </p>
-                <p className="text-[13px] font-semibold text-ink dark:text-gray-100">{title}</p>
+                <p className="text-[13px] font-semibold text-ink dark:text-[#e8edf5]">{title}</p>
                 <div className="mt-1 flex items-center gap-2">
                   <span className="rounded border border-brass/30 bg-brass-soft px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wide text-brass-deep dark:border-brass/20 dark:bg-brass/10 dark:text-brass">
                     {source}
                   </span>
-                  <span className="font-mono text-[10px] text-gray-400 dark:text-gray-600">
+                  <span className="font-mono text-[10px] text-gray-400 dark:text-[#8b98aa]">
                     {new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
                   </span>
                 </div>
@@ -649,10 +649,10 @@ export default function CircularUpload() {
                     dot: 'bg-brass',
                   },
                 ].map((m) => (
-                  <div key={m.label} className="rounded-lg border border-line bg-white px-3 py-3 text-center dark:border-gray-800 dark:bg-gray-950">
+                  <div key={m.label} className="rounded-lg border border-line bg-white px-3 py-3 text-center dark:bg-card">
                     <span className={`mx-auto mb-1.5 block h-1.5 w-1.5 rounded-full ${m.dot}`} />
-                    <p className="font-serif text-2xl font-bold leading-none text-ink dark:text-gray-100">{m.value}</p>
-                    <p className="mt-1 font-mono text-[9px] uppercase tracking-wide text-gray-400 dark:text-gray-600">{m.label}</p>
+                    <p className="font-serif text-2xl font-bold leading-none text-ink dark:text-[#e8edf5]">{m.value}</p>
+                    <p className="mt-1 font-mono text-[9px] uppercase tracking-wide text-gray-400 dark:text-[#8b98aa]">{m.label}</p>
                   </div>
                 ))}
               </div>
@@ -665,21 +665,21 @@ export default function CircularUpload() {
                   cls:   p === 'Critical' ? 'bg-danger' : p === 'High' ? 'bg-warning' : p === 'Medium' ? 'bg-brass' : 'bg-success',
                 })).filter((d) => d.count > 0)
                 return (
-                  <div className="rounded-lg border border-line bg-white px-4 py-3 dark:border-gray-800 dark:bg-gray-950">
-                    <p className="mb-2 font-mono text-[9px] uppercase tracking-wider text-gray-400 dark:text-gray-600">
+                  <div className="rounded-lg border border-line bg-white px-4 py-3 dark:bg-card">
+                    <p className="mb-2 font-mono text-[9px] uppercase tracking-wider text-gray-400 dark:text-[#8b98aa]">
                       Priority Breakdown
                     </p>
                     <div className="space-y-1.5">
                       {dist.map((d) => (
                         <div key={d.label} className="flex items-center gap-2">
                           <span className="w-14 font-mono text-[10px] text-gray-600 dark:text-gray-400">{d.label}</span>
-                          <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
+                          <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-gray-100 dark:bg-surface">
                             <div
                               className={`h-full rounded-full ${d.cls}`}
                               style={{ width: `${(d.count / ms.length) * 100}%` }}
                             />
                           </div>
-                          <span className="w-4 text-right font-mono text-[10px] text-gray-400 dark:text-gray-600">{d.count}</span>
+                          <span className="w-4 text-right font-mono text-[10px] text-gray-400 dark:text-[#8b98aa]">{d.count}</span>
                         </div>
                       ))}
                     </div>
@@ -696,7 +696,7 @@ export default function CircularUpload() {
                 </button>
                 <button
                   onClick={() => navigate('/review')}
-                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg border border-line bg-white px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-paper dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800"
+                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg border border-line bg-white px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-paper dark:bg-surface dark:text-[#e8edf5] dark:hover:bg-card"
                 >
                   <BarChart2 size={14} /> AI Extraction Review
                 </button>
@@ -708,10 +708,10 @@ export default function CircularUpload() {
         {/* ════ Right sidebar ════ */}
         <div className="space-y-4">
 
-          <div className="rounded-xl border border-line bg-white p-5">
+          <div className="rounded-xl border border-line bg-white dark:bg-card p-5">
             <div className="mb-3 flex items-center gap-2">
               <Bot size={13} className="text-violet-500" />
-              <p className="font-mono text-[10px] uppercase tracking-wider text-gray-500">How it works</p>
+              <p className="font-mono text-[10px] uppercase tracking-wider text-[#8b98aa]">How it works</p>
             </div>
             <ol className="space-y-3">
               {[
@@ -724,16 +724,16 @@ export default function CircularUpload() {
                   <span className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-ink font-mono text-[10px] font-semibold text-white">
                     {i + 1}
                   </span>
-                  <p className="text-[12px] leading-relaxed text-gray-600">{step}</p>
+                  <p className="text-[12px] leading-relaxed text-gray-600 dark:text-[#e8edf5]/80">{step}</p>
                 </li>
               ))}
             </ol>
           </div>
 
-          <div className="rounded-xl border border-line bg-white p-5">
+          <div className="rounded-xl border border-line bg-white dark:bg-card p-5">
             <div className="mb-3 flex items-center gap-2">
               <File size={13} className="text-brass" />
-              <p className="font-mono text-[10px] uppercase tracking-wider text-gray-500">Accepted formats</p>
+              <p className="font-mono text-[10px] uppercase tracking-wider text-[#8b98aa]">Accepted formats</p>
             </div>
             <div className="space-y-2">
               {[
@@ -747,36 +747,36 @@ export default function CircularUpload() {
                   <span className="w-10 flex-shrink-0 rounded border border-line bg-paper py-0.5 text-center font-mono text-[9px] font-semibold uppercase tracking-wider text-gray-500">
                     {fmt}
                   </span>
-                  <span className="text-[12px] text-gray-500">{desc}</span>
+                  <span className="text-[12px] text-[#8b98aa]">{desc}</span>
                 </div>
               ))}
             </div>
             <p className="mt-3 font-mono text-[10px] text-gray-400">Maximum file size: 20 MB</p>
           </div>
 
-          <div className="rounded-xl border border-line bg-white p-5">
+          <div className="rounded-xl border border-line bg-white dark:bg-card p-5">
             <div className="mb-3 flex items-center gap-2">
               <Globe size={13} className="text-gray-400" />
-              <p className="font-mono text-[10px] uppercase tracking-wider text-gray-500">Supported regulators</p>
+              <p className="font-mono text-[10px] uppercase tracking-wider text-[#8b98aa]">Supported regulators</p>
             </div>
             <div className="space-y-1.5">
               {ALL_REGULATORS.map((r) => (
                 <div key={r} className="flex items-center gap-2">
                   <span className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-brass" />
-                  <span className="text-[12px] text-gray-600">{r}</span>
+                  <span className="text-[12px] text-[#8b98aa]">{r}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="rounded-xl border border-violet-200 bg-violet-50 p-4">
+          <div className="rounded-xl border border-violet-200 dark:border-violet-800/60 bg-violet-50 dark:bg-violet-900/20 p-4">
             <div className="flex items-start gap-2">
               <Sparkles size={13} className="mt-0.5 flex-shrink-0 text-violet-500" />
               <div>
                 <p className="font-mono text-[10px] font-semibold uppercase tracking-wide text-violet-700">
                   Claude AI engine
                 </p>
-                <p className="mt-1 text-[11px] leading-relaxed text-violet-600">
+                <p className="mt-1 text-[11px] leading-relaxed text-violet-600 dark:text-violet-400">
                   PRAGMA uses claude-sonnet-4-6 to parse regulatory language, identify
                   compliance obligations, and estimate implementation timelines.
                 </p>
