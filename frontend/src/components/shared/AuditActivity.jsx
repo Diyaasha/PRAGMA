@@ -24,54 +24,40 @@ function AuditActivity({ events: propEvents }) {
   const recent = events.slice(0, 6)
 
   return (
-    <section className="rounded-xl border border-line bg-white p-6">
+    <section className="rounded-xl border border-line dark:border-gray-800 bg-white dark:bg-gray-950 p-6">
       <div className="mb-4 flex items-center justify-between">
-        <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-brass-deep">
+        <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-brass-deep dark:text-gray-500">
           Recent Audit Activity
         </p>
-        <span className="font-mono text-[10px] text-gray-400">
+        <span className="font-mono text-[10px] text-gray-400 dark:text-gray-600">
           {events.length} total event{events.length !== 1 ? 's' : ''}
         </span>
       </div>
 
       {recent.length === 0 ? (
         <div className="flex flex-col items-center gap-2 py-6 text-center">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-line bg-paper">
-            <span className="font-mono text-[16px] text-gray-300">○</span>
+          <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-line dark:border-gray-800 bg-paper dark:bg-gray-900">
+            <span className="font-mono text-[16px] text-gray-300 dark:text-gray-700">○</span>
           </div>
-          <p className="text-sm text-gray-500">No audit events yet.</p>
-          <p className="font-mono text-[10px] text-gray-400">
+          <p className="text-sm text-gray-500 dark:text-gray-400">No audit events yet.</p>
+          <p className="font-mono text-[10px] text-gray-400 dark:text-gray-600">
             Events appear after circulars are uploaded.
           </p>
         </div>
       ) : (
-        <ul className="space-y-2.5">
-          {recent.map((e) => {
-            const style = EVENT_STYLE(e.event_type)
-            return (
-              <li key={e.id} className="flex items-start gap-3">
-                <span className={`mt-2 h-2 w-2 flex-shrink-0 rounded-full ${style.dot}`} />
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-start justify-between gap-2">
-                    <span
-                      className={`inline-block rounded border px-1.5 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-wide ${style.badge}`}
-                    >
-                      {fmtLabel(e.event_type)}
-                    </span>
-                    <time className="flex-shrink-0 font-mono text-[10px] tabular-nums text-gray-400">
-                      {formatDateTime(e.created_at)}
-                    </time>
-                  </div>
-                  <p className="mt-0.5 truncate text-[12px] text-gray-500">{e.description}</p>
-                  {e.actor && (
-                    <p className="font-mono text-[10px] text-gray-400">
-                      — {e.actor}
-                    </p>
-                  )}
+        <ul className="space-y-3">
+          {recent.map((e) => (
+            <li key={e.id} className="flex items-start gap-3">
+              <span className={`mt-1.5 h-2 w-2 flex-shrink-0 rounded-full ${EVENT_STYLE(e.event_type).dot}`} />
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-[13px] font-medium text-ink dark:text-gray-200">{fmtLabel(e.event_type)}</span>
+                  <time className="flex-shrink-0 font-mono text-[10px] tabular-nums text-gray-400 dark:text-gray-600">{formatDateTime(e.created_at)}</time>
                 </div>
-              </li>
-            )
-          })}
+                <p className="truncate text-xs text-gray-500 dark:text-gray-400">{e.description}</p>
+              </div>
+            </li>
+          ))}
         </ul>
       )}
     </section>

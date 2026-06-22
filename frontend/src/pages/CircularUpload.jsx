@@ -25,9 +25,9 @@ import {
 
 const delay = (ms) => new Promise((r) => setTimeout(r, ms))
 
-const MAX_FILE_SIZE   = 20 * 1024 * 1024  // 20 MB
-const ACCEPTED_EXT    = new Set(['pdf', 'docx', 'doc', 'txt'])
-const ALL_REGULATORS  = ['RBI', 'SEBI', 'MCA', 'IRDAI', 'NABARD']
+const MAX_FILE_SIZE  = 20 * 1024 * 1024  // 20 MB
+const ACCEPTED_EXT   = new Set(['pdf', 'docx', 'doc', 'txt'])
+const ALL_REGULATORS = ['RBI', 'SEBI', 'MCA', 'IRDAI', 'NABARD']
 
 // ─── Utilities ────────────────────────────────────────────────────────────────
 
@@ -36,8 +36,8 @@ function getExt(filename) {
 }
 
 function formatBytes(bytes) {
-  if (bytes < 1024)            return `${bytes} B`
-  if (bytes < 1024 * 1024)     return `${(bytes / 1024).toFixed(1)} KB`
+  if (bytes < 1024)           return `${bytes} B`
+  if (bytes < 1024 * 1024)    return `${(bytes / 1024).toFixed(1)} KB`
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
 }
 
@@ -48,19 +48,19 @@ function isGDriveUrl(url) {
 // ─── File type visual config ──────────────────────────────────────────────────
 
 const FILE_CFG = {
-  pdf:  { label: 'PDF',  wrap: 'border-red-200  bg-red-50/60',  icon: 'text-red-500',   badge: 'bg-red-100  text-red-700'  },
-  docx: { label: 'DOCX', wrap: 'border-blue-200 bg-blue-50/60', icon: 'text-blue-500',  badge: 'bg-blue-100 text-blue-700' },
-  doc:  { label: 'DOC',  wrap: 'border-blue-200 bg-blue-50/60', icon: 'text-blue-500',  badge: 'bg-blue-100 text-blue-700' },
-  txt:  { label: 'TXT',  wrap: 'border-gray-200 bg-gray-50',    icon: 'text-gray-400',  badge: 'bg-gray-100 text-gray-600' },
+  pdf:  { label: 'PDF',  wrap: 'border-red-200  bg-red-50/60',  icon: 'text-red-500',  badge: 'bg-red-100  text-red-700'  },
+  docx: { label: 'DOCX', wrap: 'border-blue-200 bg-blue-50/60', icon: 'text-blue-500', badge: 'bg-blue-100 text-blue-700' },
+  doc:  { label: 'DOC',  wrap: 'border-blue-200 bg-blue-50/60', icon: 'text-blue-500', badge: 'bg-blue-100 text-blue-700' },
+  txt:  { label: 'TXT',  wrap: 'border-gray-200 bg-gray-50',    icon: 'text-gray-400', badge: 'bg-gray-100 text-gray-600' },
 }
 
 // ─── Processing stages ────────────────────────────────────────────────────────
 
 const STAGES = [
-  { id: 'upload',  Icon: Upload,       label: 'Sending to PRAGMA server',       sub: 'Establishing secure connection…'        },
-  { id: 'extract', Icon: Bot,          label: 'Claude AI reading circular',      sub: 'Extracting measurable action points…'   },
-  { id: 'route',   Icon: ArrowRight,   label: 'Routing MAPs to departments',     sub: 'Matching actions to responsible teams…' },
-  { id: 'done',    Icon: CheckCircle2, label: 'Extraction complete',             sub: 'MAPs added to the register.'            },
+  { id: 'upload',  Icon: Upload,       label: 'Sending to PRAGMA server',   sub: 'Establishing secure connection…'      },
+  { id: 'extract', Icon: Bot,          label: 'Claude AI reading circular',  sub: 'Extracting measurable action points…' },
+  { id: 'route',   Icon: ArrowRight,   label: 'Routing MAPs to departments', sub: 'Matching actions to responsible teams…' },
+  { id: 'done',    Icon: CheckCircle2, label: 'Extraction complete',         sub: 'MAPs added to the register.'          },
 ]
 
 function StageIndicator({ stage }) {
@@ -75,14 +75,14 @@ function StageIndicator({ stage }) {
           <div
             key={s.id}
             className={`flex items-center gap-3 rounded-lg border px-4 py-3 transition-all duration-300 ${
-              done    ? 'border-success-200 bg-success-50'  :
-              current ? 'border-brass/40    bg-brass-soft'  :
+              done    ? 'border-success-200 bg-success-50' :
+              current ? 'border-brass/40    bg-brass-soft' :
                         'border-line        bg-white opacity-40'
             }`}
           >
             <div className={`flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full ${
-              done    ? 'bg-success text-white'   :
-              current ? 'bg-brass   text-white'   :
+              done    ? 'bg-success text-white'  :
+              current ? 'bg-brass   text-white'  :
                         'bg-gray-100 text-gray-400'
             }`}>
               {done ? (
@@ -113,7 +113,7 @@ function FileCard({ file, onRemove, disabled }) {
   const cfg = FILE_CFG[ext] || FILE_CFG.txt
   return (
     <div className={`flex items-center gap-3 rounded-lg border ${cfg.wrap} px-4 py-3`}>
-      <div className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-inherit bg-white`}>
+      <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-inherit bg-white">
         <FileText size={18} className={cfg.icon} />
       </div>
       <div className="min-w-0 flex-1">
@@ -137,7 +137,7 @@ function FileCard({ file, onRemove, disabled }) {
   )
 }
 
-// ─── Drop zone (empty state) ──────────────────────────────────────────────────
+// ─── Drop zone ────────────────────────────────────────────────────────────────
 
 function DropZone({ dragOver, onDragOver, onDragLeave, onDrop, inputRef }) {
   return (
@@ -155,7 +155,7 @@ function DropZone({ dragOver, onDragOver, onDragLeave, onDrop, inputRef }) {
       {dragOver ? (
         <>
           <FilePlus2 size={28} className="text-primary-500" />
-          <p className="font-semibold text-primary-700 text-[13px]">Drop to upload</p>
+          <p className="text-[13px] font-semibold text-primary-700">Drop to upload</p>
         </>
       ) : (
         <>
@@ -178,9 +178,9 @@ function DropZone({ dragOver, onDragOver, onDragLeave, onDrop, inputRef }) {
 // ─── Tab definitions ──────────────────────────────────────────────────────────
 
 const TABS = [
-  { id: 'file', label: 'Upload File', Icon: Upload },
+  { id: 'file', label: 'Upload File', Icon: Upload   },
   { id: 'text', label: 'Paste Text',  Icon: FileText },
-  { id: 'url',  label: 'Import URL',  Icon: Link },
+  { id: 'url',  label: 'Import URL',  Icon: Link     },
 ]
 
 // ─── Main component ───────────────────────────────────────────────────────────
@@ -189,7 +189,7 @@ export default function CircularUpload() {
   const navigate = useNavigate()
   const { setNotification } = useAppContext()
 
-  /* Metadata (always visible) */
+  /* Metadata */
   const [title,  setTitle]  = useState('')
   const [source, setSource] = useState(CIRCULAR_SOURCES[0])
 
@@ -207,8 +207,8 @@ export default function CircularUpload() {
   /* URL tab */
   const [importUrl,   setImportUrl]   = useState('')
   const [urlFetching, setUrlFetching] = useState(false)
-  const [urlContent,  setUrlContent]  = useState(null)   // fetched plain text, or null
-  const [urlStatus,   setUrlStatus]   = useState(null)   // 'ok' | 'warn' | null
+  const [urlContent,  setUrlContent]  = useState(null)
+  const [urlStatus,   setUrlStatus]   = useState(null)
   const [urlMsg,      setUrlMsg]      = useState('')
 
   /* Submission */
@@ -253,7 +253,7 @@ export default function CircularUpload() {
 
   const onDragOver  = useCallback((e) => { e.preventDefault(); setDragOver(true) }, [])
   const onDragLeave = useCallback(() => setDragOver(false), [])
-  const onDrop = useCallback((e) => {
+  const onDrop      = useCallback((e) => {
     e.preventDefault()
     setDragOver(false)
     acceptFile(e.dataTransfer.files?.[0])
@@ -309,12 +309,10 @@ export default function CircularUpload() {
     try {
       let result
 
-      /* ── File tab ── */
       if (activeTab === 'file' && selectedFile) {
         const ext = getExt(selectedFile.name)
 
         if (ext === 'txt') {
-          /* TXT: read client-side → send as text */
           const text = await new Promise((res, rej) => {
             const r = new FileReader()
             r.onload  = (ev) => res(ev.target.result)
@@ -329,7 +327,7 @@ export default function CircularUpload() {
             result = { success: true, maps_count: MOCK_MAPS.length, maps: MOCK_MAPS }
           }
         } else {
-          /* PDF / DOCX / DOC: send raw file via FormData */
+          /* PDF / DOCX / DOC — send via FormData */
           setStage('extract')
           const fd = new FormData()
           fd.append('file',      selectedFile)
@@ -342,13 +340,12 @@ export default function CircularUpload() {
             })
             result = data
           } catch {
-            /* Backend file endpoint not yet implemented — demo fallback */
             await delay(1200)
             result = { success: true, maps_count: MOCK_MAPS.length, maps: MOCK_MAPS }
           }
         }
       } else {
-        /* ── Text or URL tab ── */
+        /* Text or URL tab */
         const body = activeTab === 'text'
           ? content.trim()
           : (urlContent || importUrl.trim())
@@ -384,10 +381,10 @@ export default function CircularUpload() {
     <div className="mx-auto max-w-4xl">
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
 
-        {/* ════════════════ Main column ════════════════ */}
+        {/* ════ Main column ════ */}
         <div className="lg:col-span-2 space-y-4">
 
-          {/* ── Metadata card ── */}
+          {/* Metadata card */}
           <div className="rounded-xl border border-line bg-white p-5">
             <p className="mb-3.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-gray-500">
               Circular Metadata
@@ -395,7 +392,7 @@ export default function CircularUpload() {
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               <div className="sm:col-span-2">
                 <label className="mb-1.5 block font-mono text-[10px] font-semibold uppercase tracking-wider text-gray-500">
-                  Title <span className="text-danger-700 ml-0.5">*</span>
+                  Title <span className="ml-0.5 text-danger-700">*</span>
                 </label>
                 <input
                   value={title}
@@ -407,7 +404,7 @@ export default function CircularUpload() {
               </div>
               <div>
                 <label className="mb-1.5 block font-mono text-[10px] font-semibold uppercase tracking-wider text-gray-500">
-                  Regulator <span className="text-danger-700 ml-0.5">*</span>
+                  Regulator <span className="ml-0.5 text-danger-700">*</span>
                 </label>
                 <select
                   value={source}
@@ -421,7 +418,7 @@ export default function CircularUpload() {
             </div>
           </div>
 
-          {/* ── Ingestion card ── */}
+          {/* Ingestion card */}
           <div className="overflow-hidden rounded-xl border border-line bg-white">
 
             {/* Tab bar */}
@@ -443,9 +440,9 @@ export default function CircularUpload() {
               ))}
             </div>
 
-            {/* ── [ Upload File ] ── */}
+            {/* Upload File tab */}
             {activeTab === 'file' && (
-              <div className="p-5 space-y-3">
+              <div className="space-y-3 p-5">
                 <input
                   ref={fileInputRef}
                   type="file"
@@ -453,7 +450,6 @@ export default function CircularUpload() {
                   onChange={onFileChange}
                   className="hidden"
                 />
-
                 {selectedFile ? (
                   <FileCard
                     file={selectedFile}
@@ -469,8 +465,6 @@ export default function CircularUpload() {
                     inputRef={fileInputRef}
                   />
                 )}
-
-                {/* Format strip + size limit */}
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 pt-0.5">
                   <span className="font-mono text-[10px] text-gray-400">Accepted:</span>
                   {['PDF', 'DOCX', 'DOC', 'TXT'].map((f) => (
@@ -486,14 +480,14 @@ export default function CircularUpload() {
               </div>
             )}
 
-            {/* ── [ Paste Text ] ── */}
+            {/* Paste Text tab */}
             {activeTab === 'text' && (
-              <div className="p-5 space-y-2">
+              <div className="space-y-2 p-5">
                 <textarea
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
                   disabled={submitting}
-                  placeholder={`Paste the full regulatory circular text here…\n\nExample:\n"All regulated entities shall implement multi-factor authentication for all digital banking channels by 31 March 2026. Entities shall submit compliance certificates to the Department of Regulation within 30 days of implementation…"`}
+                  placeholder={`Paste the full regulatory circular text here…\n\nExample:\n"All regulated entities shall implement multi-factor authentication for all digital banking channels by 31 March 2026…"`}
                   rows={12}
                   className="w-full resize-y rounded-lg border border-line bg-paper/30 px-3 py-3 text-sm text-ink placeholder:text-gray-400 focus:border-primary-400 focus:outline-none focus:ring-1 focus:ring-primary-400 disabled:opacity-60"
                 />
@@ -510,10 +504,9 @@ export default function CircularUpload() {
               </div>
             )}
 
-            {/* ── [ Import URL ] ── */}
+            {/* Import URL tab */}
             {activeTab === 'url' && (
-              <div className="p-5 space-y-4">
-                {/* URL input row */}
+              <div className="space-y-4 p-5">
                 <div>
                   <label className="mb-1.5 block font-mono text-[10px] font-semibold uppercase tracking-wider text-gray-500">
                     Circular URL
@@ -544,7 +537,6 @@ export default function CircularUpload() {
                   </div>
                 </div>
 
-                {/* Google Drive callout — shown before user fetches; status message takes over after */}
                 {gDrive && !urlStatus && (
                   <div className="flex items-start gap-3 rounded-lg border border-blue-200 bg-blue-50 px-4 py-3">
                     <div className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded border border-blue-200 bg-white font-bold text-[10px] text-blue-600">
@@ -553,27 +545,24 @@ export default function CircularUpload() {
                     <div className="min-w-0">
                       <p className="text-[13px] font-semibold text-blue-800">Google Drive document detected</p>
                       <p className="mt-0.5 text-[12px] leading-relaxed text-blue-600">
-                        Document will be fetched directly from Drive during processing. Ensure the
-                        file sharing is set to <strong>"Anyone with the link"</strong>.
+                        Document will be fetched directly from Drive during processing. Ensure file
+                        sharing is set to <strong>"Anyone with the link"</strong>.
                       </p>
                     </div>
                   </div>
                 )}
 
-                {/* Fetch result message */}
                 {urlMsg && (
                   <div className={`flex items-start gap-2.5 rounded-lg border px-4 py-2.5 ${
-                    urlStatus === 'ok'
-                      ? 'border-success-200 bg-success-50'
-                      : 'border-amber-200 bg-amber-50'
+                    urlStatus === 'ok' ? 'border-success-200 bg-success-50' : 'border-amber-200 bg-amber-50'
                   }`}>
                     {urlStatus === 'ok'
                       ? <CheckCircle2 size={14} className="mt-0.5 flex-shrink-0 text-success" />
                       : <AlertCircle  size={14} className="mt-0.5 flex-shrink-0 text-amber-600" />
                     }
-                    <p className={`text-[13px] ${
-                      urlStatus === 'ok' ? 'text-success-700 font-medium' : 'text-amber-700'
-                    }`}>{urlMsg}</p>
+                    <p className={`text-[13px] ${urlStatus === 'ok' ? 'font-medium text-success-700' : 'text-amber-700'}`}>
+                      {urlMsg}
+                    </p>
                   </div>
                 )}
 
@@ -584,7 +573,7 @@ export default function CircularUpload() {
             )}
           </div>
 
-          {/* ── Error banner ── */}
+          {/* Error banner */}
           {error && (
             <div className="flex items-center gap-2.5 rounded-lg border border-danger-200 bg-danger-50 px-4 py-2.5">
               <AlertCircle size={14} className="flex-shrink-0 text-danger" />
@@ -592,40 +581,40 @@ export default function CircularUpload() {
             </div>
           )}
 
-          {/* ── CTA / Stage indicator / Doc Intelligence ── */}
+          {/* CTA / progress / doc-intelligence */}
           {!submitting && !extractedResult ? (
             <button
               onClick={submit}
               disabled={!canSubmit}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-ink dark:bg-primary-800 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-800 dark:hover:bg-primary-700 disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-ink px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-800 dark:bg-primary-800 dark:hover:bg-primary-700 disabled:cursor-not-allowed disabled:opacity-50"
             >
               <Sparkles size={15} />
               Extract MAPs with Claude AI
             </button>
           ) : !extractedResult ? (
-            <div className="rounded-xl border border-line dark:border-gray-800 bg-white dark:bg-gray-950 p-5">
+            <div className="rounded-xl border border-line bg-white p-5 dark:border-gray-800 dark:bg-gray-950">
               <p className="mb-3 font-mono text-[10px] font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-600">
                 Processing
               </p>
               <StageIndicator stage={stage} />
             </div>
           ) : (
-            /* ── Phase 5: Document Intelligence Report ── */
-            <div className="rounded-xl border border-success-200 dark:border-green-800 bg-success-50/40 dark:bg-green-900/10 p-5 space-y-4 animate-fadeIn">
-              {/* Header */}
+            /* ── Document Intelligence Report (Phase 5) ── */
+            <div className="animate-fadeIn space-y-4 rounded-xl border border-success-200 bg-success-50/40 p-5 dark:border-green-800 dark:bg-green-900/10">
               <div className="flex items-center gap-2">
-                <ShieldCheck size={16} className="text-success dark:text-green-400 flex-shrink-0" />
+                <ShieldCheck size={16} className="flex-shrink-0 text-success dark:text-green-400" />
                 <p className="font-mono text-[10px] font-semibold uppercase tracking-wider text-success-700 dark:text-green-400">
                   Document Intelligence Report
                 </p>
               </div>
 
-              {/* Circular identity */}
-              <div className="rounded-lg border border-line dark:border-gray-800 bg-white dark:bg-gray-950 px-4 py-3">
-                <p className="font-mono text-[9px] uppercase tracking-wider text-gray-400 dark:text-gray-600 mb-1">Processed Circular</p>
-                <p className="font-semibold text-[13px] text-ink dark:text-gray-100">{title}</p>
+              <div className="rounded-lg border border-line bg-white px-4 py-3 dark:border-gray-800 dark:bg-gray-950">
+                <p className="mb-1 font-mono text-[9px] uppercase tracking-wider text-gray-400 dark:text-gray-600">
+                  Processed Circular
+                </p>
+                <p className="text-[13px] font-semibold text-ink dark:text-gray-100">{title}</p>
                 <div className="mt-1 flex items-center gap-2">
-                  <span className="rounded border border-brass/30 dark:border-brass/20 bg-brass-soft dark:bg-brass/10 px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wide text-brass-deep dark:text-brass">
+                  <span className="rounded border border-brass/30 bg-brass-soft px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wide text-brass-deep dark:border-brass/20 dark:bg-brass/10 dark:text-brass">
                     {source}
                   </span>
                   <span className="font-mono text-[10px] text-gray-400 dark:text-gray-600">
@@ -634,54 +623,49 @@ export default function CircularUpload() {
                 </div>
               </div>
 
-              {/* Metrics grid */}
               <div className="grid grid-cols-3 gap-3">
                 {[
                   {
                     label: 'MAPs Extracted',
                     value: extractedResult.maps_count ?? extractedResult.maps?.length ?? 0,
-                    sub: 'action points',
-                    dot: 'bg-success',
+                    dot:   'bg-success',
                   },
                   {
                     label: 'Avg Confidence',
                     value: (() => {
-                      const maps = extractedResult.maps || []
-                      if (!maps.length) return '—'
-                      const avg = maps.reduce((s, m) => s + (m.confidence_score ?? 0), 0) / maps.length
+                      const ms = extractedResult.maps || []
+                      if (!ms.length) return '—'
+                      const avg = ms.reduce((s, m) => s + (m.confidence_score ?? 0), 0) / ms.length
                       return `${Math.round(avg * 100)}%`
                     })(),
-                    sub: 'AI extraction',
                     dot: 'bg-violet-500',
                   },
                   {
                     label: 'Depts Involved',
                     value: (() => {
-                      const maps = extractedResult.maps || []
-                      return new Set(maps.map((m) => m.department).filter(Boolean)).size || '—'
+                      const ms = extractedResult.maps || []
+                      return new Set(ms.map((m) => m.department).filter(Boolean)).size || '—'
                     })(),
-                    sub: 'responsible teams',
                     dot: 'bg-brass',
                   },
                 ].map((m) => (
-                  <div key={m.label} className="rounded-lg border border-line dark:border-gray-800 bg-white dark:bg-gray-950 px-3 py-3 text-center">
+                  <div key={m.label} className="rounded-lg border border-line bg-white px-3 py-3 text-center dark:border-gray-800 dark:bg-gray-950">
                     <span className={`mx-auto mb-1.5 block h-1.5 w-1.5 rounded-full ${m.dot}`} />
-                    <p className="font-serif text-2xl font-bold text-ink dark:text-gray-100 leading-none">{m.value}</p>
+                    <p className="font-serif text-2xl font-bold leading-none text-ink dark:text-gray-100">{m.value}</p>
                     <p className="mt-1 font-mono text-[9px] uppercase tracking-wide text-gray-400 dark:text-gray-600">{m.label}</p>
                   </div>
                 ))}
               </div>
 
-              {/* Priority distribution */}
               {extractedResult.maps?.length > 0 && (() => {
-                const maps = extractedResult.maps
+                const ms   = extractedResult.maps
                 const dist = ['Critical', 'High', 'Medium', 'Low'].map((p) => ({
                   label: p,
-                  count: maps.filter((m) => m.priority === p).length,
-                  cls: p === 'Critical' ? 'bg-danger' : p === 'High' ? 'bg-warning' : p === 'Medium' ? 'bg-brass' : 'bg-success',
+                  count: ms.filter((m) => m.priority === p).length,
+                  cls:   p === 'Critical' ? 'bg-danger' : p === 'High' ? 'bg-warning' : p === 'Medium' ? 'bg-brass' : 'bg-success',
                 })).filter((d) => d.count > 0)
                 return (
-                  <div className="rounded-lg border border-line dark:border-gray-800 bg-white dark:bg-gray-950 px-4 py-3">
+                  <div className="rounded-lg border border-line bg-white px-4 py-3 dark:border-gray-800 dark:bg-gray-950">
                     <p className="mb-2 font-mono text-[9px] uppercase tracking-wider text-gray-400 dark:text-gray-600">
                       Priority Breakdown
                     </p>
@@ -689,13 +673,13 @@ export default function CircularUpload() {
                       {dist.map((d) => (
                         <div key={d.label} className="flex items-center gap-2">
                           <span className="w-14 font-mono text-[10px] text-gray-600 dark:text-gray-400">{d.label}</span>
-                          <div className="flex-1 h-1.5 rounded-full bg-gray-100 dark:bg-gray-800 overflow-hidden">
+                          <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
                             <div
                               className={`h-full rounded-full ${d.cls}`}
-                              style={{ width: `${(d.count / maps.length) * 100}%` }}
+                              style={{ width: `${(d.count / ms.length) * 100}%` }}
                             />
                           </div>
-                          <span className="font-mono text-[10px] text-gray-400 dark:text-gray-600 w-4 text-right">{d.count}</span>
+                          <span className="w-4 text-right font-mono text-[10px] text-gray-400 dark:text-gray-600">{d.count}</span>
                         </div>
                       ))}
                     </div>
@@ -703,17 +687,16 @@ export default function CircularUpload() {
                 )
               })()}
 
-              {/* Navigation */}
               <div className="flex gap-3">
                 <button
                   onClick={() => navigate('/maps')}
-                  className="flex-1 inline-flex items-center justify-center gap-2 rounded-lg bg-ink dark:bg-primary-800 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-800 dark:hover:bg-primary-700"
+                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg bg-ink px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-800 dark:bg-primary-800 dark:hover:bg-primary-700"
                 >
                   View MAPs Register <ArrowRight size={14} />
                 </button>
                 <button
                   onClick={() => navigate('/review')}
-                  className="flex-1 inline-flex items-center justify-center gap-2 rounded-lg border border-line dark:border-gray-700 bg-white dark:bg-gray-900 px-4 py-2.5 text-sm font-medium text-ink dark:text-gray-200 transition-colors hover:bg-paper dark:hover:bg-gray-800"
+                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg border border-line bg-white px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-paper dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800"
                 >
                   <BarChart2 size={14} /> AI Extraction Review
                 </button>
@@ -722,10 +705,9 @@ export default function CircularUpload() {
           )}
         </div>
 
-        {/* ════════════════ Right sidebar ════════════════ */}
+        {/* ════ Right sidebar ════ */}
         <div className="space-y-4">
 
-          {/* How it works */}
           <div className="rounded-xl border border-line bg-white p-5">
             <div className="mb-3 flex items-center gap-2">
               <Bot size={13} className="text-violet-500" />
@@ -748,7 +730,6 @@ export default function CircularUpload() {
             </ol>
           </div>
 
-          {/* Accepted formats */}
           <div className="rounded-xl border border-line bg-white p-5">
             <div className="mb-3 flex items-center gap-2">
               <File size={13} className="text-brass" />
@@ -756,14 +737,14 @@ export default function CircularUpload() {
             </div>
             <div className="space-y-2">
               {[
-                { fmt: 'PDF',  desc: 'Portable Document Format'     },
-                { fmt: 'DOCX', desc: 'Microsoft Word 2007+'         },
-                { fmt: 'DOC',  desc: 'Microsoft Word Legacy'        },
-                { fmt: 'TXT',  desc: 'Plain text'                   },
-                { fmt: 'URL',  desc: 'Web link or Google Drive'     },
+                { fmt: 'PDF',  desc: 'Portable Document Format' },
+                { fmt: 'DOCX', desc: 'Microsoft Word 2007+'     },
+                { fmt: 'DOC',  desc: 'Microsoft Word Legacy'    },
+                { fmt: 'TXT',  desc: 'Plain text'               },
+                { fmt: 'URL',  desc: 'Web link or Google Drive' },
               ].map(({ fmt, desc }) => (
                 <div key={fmt} className="flex items-center gap-2.5">
-                  <span className="w-10 flex-shrink-0 rounded border border-line bg-paper text-center font-mono text-[9px] font-semibold uppercase tracking-wider text-gray-500 py-0.5">
+                  <span className="w-10 flex-shrink-0 rounded border border-line bg-paper py-0.5 text-center font-mono text-[9px] font-semibold uppercase tracking-wider text-gray-500">
                     {fmt}
                   </span>
                   <span className="text-[12px] text-gray-500">{desc}</span>
@@ -773,7 +754,6 @@ export default function CircularUpload() {
             <p className="mt-3 font-mono text-[10px] text-gray-400">Maximum file size: 20 MB</p>
           </div>
 
-          {/* Supported regulators */}
           <div className="rounded-xl border border-line bg-white p-5">
             <div className="mb-3 flex items-center gap-2">
               <Globe size={13} className="text-gray-400" />
@@ -789,7 +769,6 @@ export default function CircularUpload() {
             </div>
           </div>
 
-          {/* Claude badge */}
           <div className="rounded-xl border border-violet-200 bg-violet-50 p-4">
             <div className="flex items-start gap-2">
               <Sparkles size={13} className="mt-0.5 flex-shrink-0 text-violet-500" />
