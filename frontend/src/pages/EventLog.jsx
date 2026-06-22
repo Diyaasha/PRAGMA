@@ -44,7 +44,7 @@ export default function EventLog() {
                 <span className={`absolute -left-[7px] mt-1.5 h-3 w-3 rounded-full ring-4 ring-white ${DOT(e.event_type)}`} />
                 <div className="flex items-center justify-between gap-4">
                   <p className="text-sm font-medium text-gray-900">{label(e.event_type)}</p>
-                  <time className="flex-shrink-0 font-mono text-[11px] tabular-nums text-gray-400">{formatDateTime(e.timestamp)}</time>
+                  <time className="flex-shrink-0 font-mono text-[11px] tabular-nums text-gray-400">{formatDateTime(e.created_at)}</time>
                 </div>
                 <p className="mt-0.5 text-sm text-gray-500">{e.description}</p>
               </li>

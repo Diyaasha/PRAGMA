@@ -35,7 +35,7 @@ export default function AuditActivity() {
               <div className="min-w-0 flex-1">
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-[13px] font-medium text-ink">{label(e.event_type)}</span>
-                  <time className="flex-shrink-0 font-mono text-[10px] tabular-nums text-gray-400">{formatDateTime(e.timestamp)}</time>
+                  <time className="flex-shrink-0 font-mono text-[10px] tabular-nums text-gray-400">{formatDateTime(e.created_at)}</time>
                 </div>
                 <p className="truncate text-xs text-gray-500">{e.description}</p>
               </div>

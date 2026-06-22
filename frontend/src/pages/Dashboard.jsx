@@ -1,16 +1,21 @@
 ﻿/**
- * PRAGMA — Dashboard (#15) — register pass, compact first-screen layout
+ * PRAGMA — Dashboard (#15) — full briefing with all widgets
  * Owner: Ashwin — M4
- * Lifecycle hero + slim stat row + chart/recent side-by-side, above the fold.
+ * Lifecycle → stats → chart + recent → department workload →
+ * resolution funnel + AI extraction → deadlines + audit activity.
  */
 
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, CartesianGrid } from 'recharts'
 import { useMaps } from '../hooks/useMaps'
 import LifecycleStrip from '../components/shared/LifecycleStrip'
 import StatusBadge from '../components/shared/StatusBadge'
-import PriorityBadge from '../components/shared/PriorityBadge'
 import Spinner from '../components/shared/Spinner'
 import { truncate } from '../utils/formatters'
+import DepartmentWorkload from '../components/shared/DepartmentWorkload'
+import ResolutionFunnel from '../components/shared/ResolutionFunnel'
+import AIExtractionPanel from '../components/shared/AIExtractionPanel'
+import UpcomingDeadlines from '../components/shared/UpcomingDeadlines'
+import AuditActivity from '../components/shared/AuditActivity'
 
 const PRIORITY_ORDER = ['Critical', 'High', 'Medium', 'Low']
 const PRIORITY_FILL = { Critical: '#9C2A2A', High: '#B5701F', Medium: '#9A7B3F', Low: '#9CA3AF' }
@@ -98,6 +103,21 @@ export default function Dashboard() {
             </ul>
           )}
         </div>
+      </div>
+
+      {/* Department workload — full width */}
+      <DepartmentWorkload maps={maps} />
+
+      {/* Resolution funnel + AI extraction */}
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <ResolutionFunnel maps={maps} />
+        <AIExtractionPanel maps={maps} />
+      </div>
+
+      {/* Deadlines + audit activity */}
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <UpcomingDeadlines maps={maps} />
+        <AuditActivity />
       </div>
     </div>
   )
