@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import {
   LayoutDashboard, FileText, CheckSquare, ScrollText,
-  Upload, Shield, Layers, PlayCircle, Zap,
+  Upload, Shield, Layers, PlayCircle, Zap, GitBranch,
 } from 'lucide-react'
 import { useAppContext } from '../../contexts/AppContext'
 
@@ -9,6 +9,7 @@ const NAV_ITEMS = [
   { to: '/',          label: 'Dashboard',     sub: 'Overview',        icon: LayoutDashboard, end: true },
   { to: '/maps',      label: 'Action Points', sub: 'MAP Register',    icon: FileText },
   { to: '/simulate',  label: 'Impact Simulator', sub: 'Predictive AI',  icon: Zap },
+  { to: '/trace',     label: 'Trace Graph',      sub: 'Provenance',     icon: GitBranch },
   { to: '/review',    label: 'AI Review',     sub: 'Extraction',      icon: Layers },
   { to: '/approvals', label: 'Approvals',     sub: 'Review Queue',    icon: CheckSquare },
   { to: '/events',    label: 'Audit Log',     sub: 'Event Ledger',    icon: ScrollText },

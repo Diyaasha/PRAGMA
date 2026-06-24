@@ -29,9 +29,15 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Optional
 
-import feedparser
-import requests
-from requests.exceptions import RequestException, Timeout
+try:
+    import feedparser
+    import requests
+    from requests.exceptions import RequestException, Timeout
+    _FEED_DEPS_AVAILABLE = True
+except ImportError:
+    _FEED_DEPS_AVAILABLE = False
+    RequestException = Exception
+    Timeout = Exception
 
 logger = logging.getLogger(__name__)
 
@@ -164,6 +170,10 @@ def fetch_feed(source: str) -> list[CircularPreview]:
     url = FEED_URLS[source_upper]
     logger.info("Fetching %s regulatory feed from %s", source_upper, url)
 
+    if not _FEED_DEPS_AVAILABLE:
+        logger.info("Feed dependencies not installed — returning empty (offline mode)")
+        return []
+
     try:
         response = requests.get(url, timeout=REQUEST_TIMEOUT, headers={
             "User-Agent": "PRAGMA-Compliance-Monitor/1.0"
@@ -171,10 +181,13 @@ def fetch_feed(source: str) -> list[CircularPreview]:
         response.raise_for_status()
         feed_text = response.text
     except Timeout:
-        logger.warning("Timeout fetching %s feed from %s", source_upper, url)
+        logger.warning("Timeout fetching %s feed — offline or slow network", source_upper)
         return []
     except RequestException as e:
-        logger.warning("Network error fetching %s feed: %s", source_upper, e)
+        logger.warning("Network error fetching %s feed: %s — returning empty (offline mode)", source_upper, e)
+        return []
+    except Exception as e:
+        logger.warning("Unexpected error fetching %s feed: %s", source_upper, e)
         return []
 
     # Parse with feedparser
@@ -252,6 +265,10 @@ def fetch_circular_text(url: str) -> str:
     if not url:
         return ""
 
+    if not _FEED_DEPS_AVAILABLE:
+        logger.info("Feed dependencies not installed — URL fetch skipped (offline mode)")
+        return ""
+
     try:
         response = requests.get(url, timeout=REQUEST_TIMEOUT, headers={
             "User-Agent": "PRAGMA-Compliance-Monitor/1.0"
@@ -260,15 +277,14 @@ def fetch_circular_text(url: str) -> str:
 
         content_type = response.headers.get("Content-Type", "")
 
-        # Skip PDF and binary content
         if "pdf" in content_type.lower() or "octet-stream" in content_type.lower():
             logger.info("Skipping binary content from %s (content-type: %s)", url, content_type)
             return ""
 
         return response.text
 
-    except RequestException as e:
-        logger.warning("Failed to fetch circular text from %s: %s", url, e)
+    except Exception as e:
+        logger.warning("Failed to fetch circular text from %s: %s (offline or unreachable)", url, e)
         return ""
 
 

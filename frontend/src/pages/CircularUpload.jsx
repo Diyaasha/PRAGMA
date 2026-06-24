@@ -259,7 +259,7 @@ export default function CircularUpload() {
     acceptFile(e.dataTransfer.files?.[0])
   }, [acceptFile])
 
-  /* ── URL fetch ── */
+  /* ── URL fetch — offline safe ── */
   const fetchUrl = async () => {
     const url = importUrl.trim()
     if (!url.startsWith('http')) {
@@ -267,31 +267,13 @@ export default function CircularUpload() {
       setUrlMsg('Enter a valid URL starting with https://')
       return
     }
-    setUrlStatus(null); setUrlMsg(''); setUrlFetching(true); setUrlContent(null)
-    try {
-      const res  = await fetch(url, { mode: 'cors' })
-      const html = await res.text()
-      const tmp  = document.createElement('div')
-      tmp.innerHTML = html
-      const text = (tmp.innerText || tmp.textContent || '').slice(0, 50_000)
-      setUrlContent(text)
-      setUrlStatus('ok')
-      setUrlMsg(`${text.length.toLocaleString()} characters extracted`)
-      if (!title.trim()) {
-        const m = html.match(/<title[^>]*>(.*?)<\/title>/i)
-        if (m) setTitle(m[1].trim().slice(0, 120))
-      }
-    } catch {
-      if (gDrive) {
-        setUrlStatus('ok')
-        setUrlMsg('Google Drive document identified — will be fetched during processing.')
-      } else {
-        setUrlStatus('warn')
-        setUrlMsg('Could not fetch directly (CORS restriction). The server will retrieve this URL during processing.')
-      }
-    } finally {
-      setUrlFetching(false)
-    }
+    // In offline / air-gapped mode we cannot fetch external URLs.
+    // Accept the URL as a text reference and let the user submit it as content.
+    setUrlStatus('warn')
+    setUrlMsg(
+      'URL import requires internet access. For offline demo: download the circular as PDF or TXT and use the Upload File tab.'
+    )
+    setUrlContent(url) // pass URL as content so form is submittable
   }
 
   /* ── Tab switch ── */
