@@ -14,6 +14,8 @@ from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
     # ── Database ──────────────────────────────────────────────────────────────
+    # Railway: mount a volume at /data and set DATABASE_URL=sqlite:////data/pragma.db
+    # Local:   defaults to a file in the backend working directory
     DATABASE_URL: str = "sqlite:///./pragma_demo.db"
 
     # ── AI Engine ─────────────────────────────────────────────────────────────
