@@ -1,6 +1,7 @@
 import { useState, useMemo, useRef, useEffect, useCallback } from 'react'
 import { useCirculars } from '../hooks/useCirculars'
 import { useMaps } from '../hooks/useMaps'
+import { getCircularById } from '../api/circulars'
 import { recomputeProvenance } from '../api/insights'
 import PriorityBadge from '../components/shared/PriorityBadge'
 import StatusBadge from '../components/shared/StatusBadge'
@@ -270,6 +271,25 @@ export default function ExtractionReview() {
   }, [circulars, selectedCircularId])
 
   const circular  = byId[selectedCircularId]
+
+  // The /circulars list endpoint omits `content` (CircularSummaryOut) for
+  // performance, so byId[...] never has the full text. Fetch the detail
+  // record (CircularOut, which includes content) whenever the selection changes.
+  const [fullContent, setFullContent]       = useState('')
+  const [contentLoading, setContentLoading] = useState(false)
+
+  useEffect(() => {
+    if (!selectedCircularId) { setFullContent(''); return }
+    let alive = true
+    setContentLoading(true)
+    setFullContent('')
+    getCircularById(selectedCircularId)
+      .then((c) => { if (alive) setFullContent(c?.content ?? '') })
+      .catch(() => { if (alive) setFullContent('') })
+      .finally(() => { if (alive) setContentLoading(false) })
+    return () => { alive = false }
+  }, [selectedCircularId])
+
   const circlMaps = useMemo(
     () => maps.filter((m) => m.circular_id === selectedCircularId),
     [maps, selectedCircularId],
@@ -427,7 +447,7 @@ export default function ExtractionReview() {
             )}
           </div>
           <div className="flex-1 overflow-y-auto p-5" ref={highlightRef}>
-            {loading ? (
+            {loading || contentLoading ? (
               <div className="space-y-3">
                 {Array.from({ length: 8 }).map((_, i) => (
                   <div key={i} className="skeleton h-4 rounded" style={{ width: `${65 + (i % 4) * 8}%` }} />
@@ -435,13 +455,13 @@ export default function ExtractionReview() {
               </div>
             ) : hasEvidence ? (
               <HighlightedText
-                content={circular?.content ?? ''}
+                content={fullContent}
                 highlights={highlights}
                 onHighlightClick={handleHighlightClick}
               />
             ) : (
               <CircularTextFallback
-                content={circular?.content ?? ''}
+                content={fullContent}
                 selectedClauseRef={selectedMap?.source_clause ?? null}
                 sectionRefs={sectionRefs}
               />
