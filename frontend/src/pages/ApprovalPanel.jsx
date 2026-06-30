@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useMaps } from '../hooks/useMaps'
 import { useCirculars } from '../hooks/useCirculars'
 import { createApproval } from '../api/approvals'
@@ -311,6 +311,9 @@ export default function ApprovalPanel() {
   const [resolved, setResolved]   = useState([])
 
   const pending = maps.filter((m) => key(m.status) === 'PENDING' && !resolved.includes(m.id))
+
+  // Always refresh on mount so newly uploaded circulars' MAPs appear immediately
+  useEffect(() => { refresh() }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const onResolved = (id) => {
     setResolved((r) => [...r, id])
