@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useEvents } from '../hooks/useEvents'
-import { formatDateTime } from '../utils/formatters'
+import { formatDateTime, toLocalDate } from '../utils/formatters'
 import { SkeletonTableRows } from '../components/shared/Skeleton'
 import { Filter, Calendar, User, X } from 'lucide-react'
 
@@ -39,7 +39,7 @@ const startOfDay = () => {
 
 const matchDate = (created_at, range) => {
   if (range === 'All Time' || !created_at) return true
-  const ts = new Date(created_at)
+  const ts = toLocalDate(created_at)
   if (range === 'Today') return ts >= startOfDay()
   if (range === 'Last 7 Days') {
     const cutoff = new Date(); cutoff.setDate(cutoff.getDate() - 7); cutoff.setHours(0,0,0,0)

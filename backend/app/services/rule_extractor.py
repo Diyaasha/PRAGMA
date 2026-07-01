@@ -183,6 +183,12 @@ def _clean_action(sentence: str) -> str:
     """Strip boilerplate preamble and return a clean imperative action phrase."""
     text = sentence.strip()
 
+    # Drop a trailing clause/list marker the sentence splitter pulled in from the
+    # start of the *next* clause, e.g. "...every quarter.\n2." -> "...every quarter."
+    # Requires the number to be on its own line so real in-sentence numbers
+    # (e.g. "within 90 days") are never touched.
+    text = re.sub(r"\s*\n\s*\d{1,3}[.)]?\s*$", "", text).strip()
+
     # Strip leading clause/section/para references: "Para 4.2: ...", "Section 5: ..."
     text = re.sub(
         r"^(?:Section|Clause|Para(?:graph)?|Rule|Article|Regulation|Annex(?:ure)?)\s*[\d.]+(?:\(\w+\))*\s*[:\-–—]\s*",
