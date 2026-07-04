@@ -19,6 +19,9 @@ Usage:
 
 import json
 import os
+os.environ["AI_ENGINE"] = "rule_based"
+os.environ["ANTHROPIC_API_KEY"] = ""
+os.environ["DATABASE_URL"] = "sqlite:///./test_pragma.db"
 import pytest
 from pathlib import Path
 from fastapi.testclient import TestClient
@@ -75,7 +78,7 @@ def client():
 
 
 @pytest.fixture
-def fresh_client():
+def fresh_client(client):
     """
     A TestClient that starts each test from a clean state.
 
@@ -85,11 +88,9 @@ def fresh_client():
 
     This fixture is forward-compatible with Diptanshu's DB integration.
     """
-    from app.main import app
-    with TestClient(app) as c:
-        # Reset state using the demo/reset endpoint — works for both backends
-        c.post("/api/v1/demo/reset")
-        yield c
+    # Reset state using the demo/reset endpoint — works for both backends
+    client.post("/api/v1/demo/reset?seed=false")
+    yield client
 
 
 # ---------------------------------------------------------------------------

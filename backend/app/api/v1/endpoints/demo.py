@@ -24,7 +24,7 @@ from app.services.provenance_service import compute_provenance_for_circular
 router = APIRouter()
 
 
-def _seed_demo_data(db: Session) -> dict:
+def _seed_demo_data(db: Session, seed: bool = True) -> dict:
     """
     Wipe all transactional data and seed a pristine, compelling demo scenario.
     Called by POST /demo/reset. Returns counts of seeded rows.
@@ -47,6 +47,14 @@ def _seed_demo_data(db: Session) -> dict:
     db.commit()
     for name in dept_names:
         depts[name] = db.query(Department).filter(Department.name == name).first()
+
+    if not seed:
+        return {
+            "circulars": 0,
+            "maps":      0,
+            "events":    0,
+            "approvals": 0,
+        }
 
     today = date.today()
 
@@ -283,13 +291,13 @@ def _seed_demo_data(db: Session) -> dict:
 # ── Endpoints ─────────────────────────────────────────────────────────────────
 
 @router.post("/reset")
-async def reset_demo(db: Session = Depends(get_db)):
+async def reset_demo(seed: bool = True, db: Session = Depends(get_db)):
     """
     Reset demo state: wipe all data, re-seed 3 circulars + 14 MAPs + audit trail.
     Single click restores a pristine, compelling demo scenario.
     """
     try:
-        counts = _seed_demo_data(db)
+        counts = _seed_demo_data(db, seed=seed)
         reset_availability_cache()   # re-probe Ollama on next extraction
         clear_prompt_cache()         # flush prompt cache so fresh circulars re-invoke LLM
         return {

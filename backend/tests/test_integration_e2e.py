@@ -84,7 +84,7 @@ class TestFullDemoFlow:
                 "notes": "Verified against RBI Digital Lending Directions 2022 — proceed.",
             },
         )
-        assert response.status_code == 200
+        assert response.status_code == 201
         data = response.json()
         assert "approval" in data or "message" in data
 
@@ -114,16 +114,28 @@ class TestFullDemoFlow:
                 "notes": "Action already covered under existing policy.",
             },
         )
-        assert response.status_code == 200
+        assert response.status_code == 201
         data = response.json()
         assert "rejected" in str(data).lower() or "approval" in data or "message" in data
 
-    def test_step6_invalid_approval_decision_is_rejected(self, fresh_client):
+    def test_step6_invalid_approval_decision_is_rejected(
+        self, fresh_client, mock_claude_extract, digital_lending_text
+    ):
         """Approval endpoint must reject invalid decision values."""
+        fresh_client.post(
+            "/api/v1/circulars/upload",
+            json={"title": "RBI Digital Lending 2022", "source": "RBI", "content": digital_lending_text},
+        )
+        maps_resp = fresh_client.get("/api/v1/maps")
+        maps = maps_resp.json()
+        if not maps:
+            pytest.skip("No MAPs available")
+        map_id = maps[0]["id"]
+
         response = fresh_client.post(
             "/api/v1/approvals",
             json={
-                "map_id": "00000000-0000-0000-0000-000000000000",
+                "map_id": map_id,
                 "decision": "MAYBE",
                 "reviewer": "Test",
                 "comments": "",

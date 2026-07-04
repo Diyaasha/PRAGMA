@@ -37,7 +37,9 @@ class UUIDType(TypeDecorator):
         return str(value)
 
     def process_result_value(self, value, dialect):
-        return value   # string UUID — consistent across both backends
+        if value is None:
+            return None
+        return str(value)   # string UUID — consistent across both backends
 
     @staticmethod
     def new() -> str:

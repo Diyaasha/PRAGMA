@@ -199,7 +199,7 @@ class TestListCirculars:
         """Each circular in the list must include a status field."""
         fresh_client.post(
             "/api/v1/circulars/upload",
-            json={"title": "Test", "source": "RBI", "content": digital_lending_text},
+            json={"title": "Test Circular", "source": "RBI", "content": digital_lending_text},
         )
         response = fresh_client.get("/api/v1/circulars")
         circulars = response.json()
