@@ -8,6 +8,7 @@ Offline-first: creates SQLite tables on startup, seeds departments.
 import asyncio
 import logging
 from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -49,7 +50,10 @@ async def lifespan(app: FastAPI):
     except asyncio.TimeoutError:
         logger.warning("[PRAGMA] Startup tasks timed out — continuing anyway")
     except Exception as exc:
-        logger.warning("[PRAGMA] Startup tasks failed: %s — continuing anyway", exc)
+        logger.warning(
+            "[PRAGMA] Startup tasks failed: %s — continuing anyway",
+            exc,
+        )
     yield
 
 
@@ -84,6 +88,20 @@ app.add_middleware(
 
 app.include_router(api_router, prefix="/api/v1")
 
+# ── Root ──────────────────────────────────────────────────────────────────────
+
+
+@app.get("/", tags=["system"])
+async def root():
+    return {
+        "status": "ok",
+        "service": "PRAGMA API",
+        "message": "PRAGMA backend is live",
+        "health": "/health",
+        "docs": "/docs",
+    }
+
+
 # ── Health — never blocks; reports AI engine status ───────────────────────────
 
 
@@ -96,24 +114,31 @@ async def health_check():
     """
     try:
         from app.services.ai_engine import get_engine_status
+
         ai = get_engine_status()
     except Exception:
-        ai = {"engine": "unknown", "model": None, "available": False, "label": "Unknown"}
+        ai = {
+            "engine": "unknown",
+            "model": None,
+            "available": False,
+            "label": "Unknown",
+        }
 
     try:
         from app.services.ollama_service import get_cache_stats
+
         cache = get_cache_stats()
     except Exception:
         cache = {}
 
     return {
-        "status":       "ok",
-        "service":      "PRAGMA API",
-        "version":      "1.0.0",
-        "ai_engine":    ai["engine"],
-        "ai_model":     ai.get("model"),
+        "status": "ok",
+        "service": "PRAGMA API",
+        "version": "1.0.0",
+        "ai_engine": ai["engine"],
+        "ai_model": ai.get("model"),
         "ai_available": ai.get("available", False),
-        "ai_label":     ai.get("label", ""),
+        "ai_label": ai.get("label", ""),
         "offline_mode": True,
         "prompt_cache": cache,
     }
